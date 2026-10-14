@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="Stanley Chisel Set 4pc">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fef3c7"/>
+      <stop offset="1" stop-color="#fde68a"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="400" fill="url(#bg)"/>
+  <ellipse cx="200" cy="330" rx="130" ry="14" fill="#0f172a" opacity=".12"/>
+  
+    <rect x="108" y="184" width="118" height="30" rx="14" fill="#a16207"/>
+    <rect x="224" y="190" width="108" height="18" rx="4" fill="#94a3b8"/>
+    <path d="M332 190 L352 199 L332 208 Z" fill="#94a3b8"/>
+    <rect x="236" y="186" width="6" height="26" fill="#1f2937" opacity=".3"/>
+  <text x="24" y="44" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" letter-spacing="2" fill="#0f172a" opacity=".55">STANLEY</text>
+</svg>

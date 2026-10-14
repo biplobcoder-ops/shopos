@@ -1,0 +1,211 @@
+// components/pdf/report-pdf.tsx
+
+import {
+  Document,
+  Page,
+  Text,
+  View,
+  StyleSheet,
+} from '@react-pdf/renderer';
+import { formatDate } from '@/lib/format';
+
+const styles = StyleSheet.create({
+  page: {
+    padding: 40,
+    fontSize: 10,
+    fontFamily: 'Helvetica',
+    color: '#18181b',
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    borderBottomWidth: 2,
+    borderBottomColor: '#4f46e5',
+    paddingBottom: 12,
+    marginBottom: 16,
+  },
+  shopName: { fontSize: 18, fontWeight: 700, color: '#4f46e5' },
+  shopMeta: { fontSize: 9, color: '#52525b', marginTop: 2 },
+  title: { fontSize: 18, fontWeight: 700, textAlign: 'right' },
+  meta: { fontSize: 9, color: '#52525b', textAlign: 'right', marginTop: 2 },
+  summary: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 8,
+    marginBottom: 14,
+  },
+  summaryBox: {
+    width: '31.5%',
+    padding: 8,
+    borderWidth: 1,
+    borderColor: '#e4e4e7',
+    borderRadius: 4,
+  },
+  summaryLabel: {
+    fontSize: 8,
+    color: '#71717a',
+    textTransform: 'uppercase',
+  },
+  summaryValue: { fontSize: 12, fontWeight: 700, marginTop: 3 },
+  table: {
+    borderWidth: 1,
+    borderColor: '#e4e4e7',
+    borderRadius: 4,
+    overflow: 'hidden',
+  },
+  tableHeader: {
+    flexDirection: 'row',
+    backgroundColor: '#f4f4f5',
+    paddingVertical: 6,
+    paddingHorizontal: 8,
+    fontWeight: 700,
+    fontSize: 9,
+    borderBottomWidth: 1,
+    borderBottomColor: '#e4e4e7',
+  },
+  tableRow: {
+    flexDirection: 'row',
+    paddingVertical: 6,
+    paddingHorizontal: 8,
+    borderBottomWidth: 1,
+    borderBottomColor: '#f4f4f5',
+    fontSize: 9,
+  },
+  footer: {
+    position: 'absolute',
+    bottom: 30,
+    left: 40,
+    right: 40,
+    borderTopWidth: 1,
+    borderTopColor: '#e4e4e7',
+    paddingTop: 8,
+    fontSize: 8,
+    color: '#71717a',
+    textAlign: 'center',
+  },
+});
+
+export interface ReportColumn {
+  key: string;
+  label: string;
+  width: string;
+  align?: 'left' | 'right' | 'center';
+}
+
+export interface ReportSummary {
+  label: string;
+  value: string;
+}
+
+interface Props {
+  business: {
+    name: string;
+    address: string;
+    phone: string;
+    email: string;
+  };
+  title: string;
+  subtitle?: string;
+  periodFrom: Date;
+  periodTo: Date;
+  summary?: ReportSummary[];
+  columns: ReportColumn[];
+  rows: Record<string, any>[];
+}
+
+export function ReportPDF({
+  business,
+  title,
+  subtitle,
+  periodFrom,
+  periodTo,
+  summary = [],
+  columns,
+  rows,
+}: Props) {
+  return (
+    <Document>
+      <Page size="A4" style={styles.page}>
+        {/* Header */}
+        <View style={styles.header}>
+          <View>
+            <Text style={styles.shopName}>{business.name}</Text>
+            <Text style={styles.shopMeta}>{business.address}</Text>
+            <Text style={styles.shopMeta}>
+              {business.phone} · {business.email}
+            </Text>
+          </View>
+          <View>
+            <Text style={styles.title}>{title}</Text>
+            <Text style={styles.meta}>
+              Period: {formatDate(periodFrom)} — {formatDate(periodTo)}
+            </Text>
+            {subtitle && <Text style={styles.meta}>{subtitle}</Text>}
+            <Text style={styles.meta}>
+              Generated {formatDate(new Date())}
+            </Text>
+          </View>
+        </View>
+
+        {/* Summary Boxes */}
+        {summary.length > 0 && (
+          <View style={styles.summary}>
+            {summary.map((s, i) => (
+              <View key={i} style={styles.summaryBox}>
+                <Text style={styles.summaryLabel}>{s.label}</Text>
+                <Text style={styles.summaryValue}>{s.value}</Text>
+              </View>
+            ))}
+          </View>
+        )}
+
+        {/* Data Table */}
+        <View style={styles.table}>
+          <View style={styles.tableHeader}>
+            {columns.map((c) => (
+              <Text
+                key={c.key}
+                style={{
+                  width: c.width,
+                  textAlign: c.align ?? 'left',
+                }}
+              >
+                {c.label}
+              </Text>
+            ))}
+          </View>
+          {rows.map((row, i) => (
+            <View key={i} style={styles.tableRow}>
+              {columns.map((c) => (
+                <Text
+                  key={c.key}
+                  style={{
+                    width: c.width,
+                    textAlign: c.align ?? 'left',
+                  }}
+                >
+                  {String(row[c.key] ?? '—')}
+                </Text>
+              ))}
+            </View>
+          ))}
+          {rows.length === 0 && (
+            <View style={styles.tableRow}>
+              <Text
+                style={{ width: '100%', textAlign: 'center', color: '#71717a' }}
+              >
+                No data for this period.
+              </Text>
+            </View>
+          )}
+        </View>
+
+        {/* Footer */}
+        <Text style={styles.footer} fixed>
+          Generated by Southern Cross Tools · {business.name}
+        </Text>
+      </Page>
+    </Document>
+  );
+}

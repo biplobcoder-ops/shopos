@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="Digital Vernier Caliper">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ecfccb"/>
+      <stop offset="1" stop-color="#d9f99d"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="400" fill="url(#bg)"/>
+  <ellipse cx="200" cy="330" rx="130" ry="14" fill="#0f172a" opacity=".12"/>
+  
+    <rect x="50" y="186" width="300" height="28" rx="6" fill="#94a3b8"/>
+    <rect x="74" y="152" width="22" height="90" rx="4" fill="#1f2937"/>
+    <rect x="128" y="160" width="14" height="70" rx="3" fill="#1f2937"/>
+    <rect x="236" y="164" width="16" height="62" rx="3" fill="#1f2937"/>
+    <rect x="236" y="130" width="92" height="46" rx="8" fill="#1f2937"/>
+    <rect x="246" y="138" width="72" height="20" rx="4" fill="#67e8f9" opacity=".85"/>
+    <rect x="66" y="222" width="268" height="6" rx="3" fill="#f97316" opacity=".8"/>
+  <text x="24" y="44" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" letter-spacing="2" fill="#0f172a" opacity=".55">GENERIC</text>
+</svg>

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="Stanley Utility Knife">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fef3c7"/>
+      <stop offset="1" stop-color="#fde68a"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="400" fill="url(#bg)"/>
+  <ellipse cx="200" cy="330" rx="130" ry="14" fill="#0f172a" opacity=".12"/>
+  
+    <rect x="98" y="182" width="150" height="42" rx="14" fill="#facc15"/>
+    <rect x="110" y="190" width="126" height="8" rx="4" fill="#fef9c3"/>
+    <path d="M246 186 L336 204 L246 218 Z" fill="#94a3b8"/>
+    <rect x="236" y="182" width="16" height="42" rx="3" fill="#1f2937"/>
+    <circle cx="130" cy="203" r="8" fill="#1f2937" opacity=".4"/>
+  <text x="24" y="44" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" letter-spacing="2" fill="#0f172a" opacity=".55">STANLEY</text>
+</svg>

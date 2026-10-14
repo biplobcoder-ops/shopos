@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="Safety Helmet Yellow">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffedd5"/>
+      <stop offset="1" stop-color="#fed7aa"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="400" fill="url(#bg)"/>
+  <ellipse cx="200" cy="330" rx="130" ry="14" fill="#0f172a" opacity=".12"/>
+  
+    <path d="M104 236 Q104 112 200 112 Q296 112 296 236 Z" fill="#facc15"/>
+    <path d="M142 150 Q200 128 258 150" fill="none" stroke="#ffffff" stroke-width="10" opacity=".5" stroke-linecap="round"/>
+    <rect x="84" y="226" width="232" height="26" rx="13" fill="#facc15" stroke="#1f2937" stroke-width="3" stroke-opacity=".25"/>
+    <rect x="182" y="150" width="36" height="20" rx="6" fill="#1f2937" opacity=".15"/>
+  <text x="24" y="44" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" letter-spacing="2" fill="#0f172a" opacity=".55">GENERIC</text>
+</svg>
