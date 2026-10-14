@@ -29,10 +29,10 @@ export function WebsiteCartDrawer() {
       <SheetContent side="right" className="w-full sm:w-[420px] p-0 flex flex-col">
         <SheetHeader className="px-4 py-3 border-b border-border">
           <SheetTitle className="flex items-center gap-2">
-            <ShoppingBag className="h-4 w-4" />
+            <ShoppingBag className="h-4 w-4 text-primary" />
             Shopping Cart
             {count > 0 && (
-              <span className="inline-flex items-center justify-center min-w-5 h-5 px-1.5 rounded-full bg-brand-600 text-white text-[10px] font-bold">
+              <span className="inline-flex items-center justify-center min-w-5 h-5 px-1.5 rounded-full bg-accent text-accent-foreground text-[10px] font-bold">
                 {count}
               </span>
             )}
@@ -47,7 +47,11 @@ export function WebsiteCartDrawer() {
               description="Browse our products and add items to get started."
               className="py-16"
               action={
-                <Button onClick={() => setOpen(false)} asChild>
+                <Button
+                  onClick={() => setOpen(false)}
+                  asChild
+                  className="bg-primary text-primary-foreground hover:bg-primary/90"
+                >
                   <Link href="/shop">Browse Products</Link>
                 </Button>
               }
@@ -61,13 +65,17 @@ export function WebsiteCartDrawer() {
                     onClick={() => setOpen(false)}
                     className="h-16 w-16 rounded-lg overflow-hidden bg-muted/40 shrink-0"
                   >
-                    <img src={productImage(it.sku)} alt="" className="h-full w-full object-cover" />
+                    <img
+                      src={productImage(it.sku)}
+                      alt=""
+                      className="h-full w-full object-cover"
+                    />
                   </Link>
                   <div className="min-w-0 flex-1">
                     <Link
                       href={`/product/${it.productId}`}
                       onClick={() => setOpen(false)}
-                      className="text-sm font-medium leading-snug line-clamp-2 hover:text-brand-600 dark:hover:text-brand-400"
+                      className="text-sm font-medium leading-snug line-clamp-2 hover:text-primary transition-colors"
                     >
                       {it.name}
                     </Link>
@@ -105,7 +113,7 @@ export function WebsiteCartDrawer() {
                   <button
                     type="button"
                     onClick={() => cart.remove(it.productId)}
-                    className="self-start p-1 -mr-1 rounded text-muted-foreground hover:text-red-500"
+                    className="self-start p-1 -mr-1 rounded text-muted-foreground hover:text-destructive"
                     aria-label="Remove"
                   >
                     <Trash2 className="h-3.5 w-3.5" />
@@ -136,7 +144,11 @@ export function WebsiteCartDrawer() {
               >
                 <Link href="/cart">View Cart</Link>
               </Button>
-              <Button onClick={() => setOpen(false)} className="h-10" asChild>
+              <Button
+                onClick={() => setOpen(false)}
+                className="h-10 bg-primary text-primary-foreground hover:bg-primary/90"
+                asChild
+              >
                 <Link href="/checkout">
                   Checkout
                   <ArrowRight className="h-3.5 w-3.5 ml-1.5" />
