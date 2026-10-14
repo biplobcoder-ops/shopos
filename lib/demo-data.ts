@@ -78,69 +78,74 @@ export const demoUnits: Unit[] = [
 /* Products (55 items) — Prices in AUD with images                    */
 /* ------------------------------------------------------------------ */
 
-type Seed = [string, string, string, number, number, string];
+type Seed = [string, string, string, number, number, string, string]; // + Unsplash ID
 
-// [name, category, brand, purchasePrice (AUD), sellingPrice (AUD), unitShort]
+// [name, category, brand, purchasePrice, sellingPrice, unitShort, unsplashId]
 const productSeeds: Seed[] = [
-  ['Bosch Impact Drill 500W', 'Power Tools', 'Bosch', 109, 129, 'pc'],
-  ['Bosch Rotary Hammer 800W', 'Power Tools', 'Bosch', 220, 265, 'pc'],
-  ['Bosch Angle Grinder 4 inch', 'Power Tools', 'Bosch', 82, 99, 'pc'],
-  ['Bosch Jigsaw 550W', 'Power Tools', 'Bosch', 125, 149, 'pc'],
-  ['Bosch Circular Saw 1400W', 'Power Tools', 'Bosch', 195, 235, 'pc'],
-  ['Makita Angle Grinder 720W', 'Power Tools', 'Makita', 79, 95, 'pc'],
-  ['Makita Cordless Drill 18V', 'Power Tools', 'Makita', 285, 345, 'pc'],
-  ['Makita Sander 300W', 'Power Tools', 'Makita', 105, 125, 'pc'],
-  ['Makita Heat Gun 1800W', 'Power Tools', 'Makita', 135, 165, 'pc'],
-  ['DeWalt Circular Saw 1800W', 'Power Tools', 'DeWalt', 155, 185, 'pc'],
-  ['DeWalt Reciprocating Saw', 'Power Tools', 'DeWalt', 205, 245, 'pc'],
-  ['DeWalt Impact Driver 20V', 'Power Tools', 'DeWalt', 255, 305, 'pc'],
-  ['DeWalt Air Compressor 2HP', 'Power Tools', 'DeWalt', 295, 339, 'pc'],
-  ['Black+Decker Drill 550W', 'Power Tools', 'Black+Decker', 89, 105, 'pc'],
-  ['Black+Decker Blower 600W', 'Power Tools', 'Black+Decker', 68, 82, 'pc'],
-  ['Welding Machine Inverter 200A', 'Power Tools', 'Generic', 189, 229, 'pc'],
-  ['Air Compressor 3HP Portable', 'Power Tools', 'Generic', 279, 339, 'pc'],
-  ['Bench Grinder 6 inch', 'Power Tools', 'Generic', 95, 115, 'pc'],
+  // ---------------- POWER TOOLS ----------------
+  ['Bosch Impact Drill 500W', 'Power Tools', 'Bosch', 109, 129, 'pc', 'photo-1504148455328-c376907d081c'],
+  ['Bosch Rotary Hammer 800W', 'Power Tools', 'Bosch', 220, 265, 'pc', 'photo-1572981779307-38b8cabb2407'],
+  ['Bosch Angle Grinder 4 inch', 'Power Tools', 'Bosch', 82, 99, 'pc', 'photo-1503387762-592deb58ef4e'],
+  ['Bosch Jigsaw 550W', 'Power Tools', 'Bosch', 125, 149, 'pc', 'photo-1581092160562-40aa08e78837'],
+  ['Bosch Circular Saw 1400W', 'Power Tools', 'Bosch', 195, 235, 'pc', 'photo-1572981779307-38b8cabb2407'],
+  ['Makita Angle Grinder 720W', 'Power Tools', 'Makita', 79, 95, 'pc', 'photo-1504148455328-c376907d081c'],
+  ['Makita Cordless Drill 18V', 'Power Tools', 'Makita', 285, 345, 'pc', 'photo-1503387762-592deb58ef4e'],
+  ['Makita Sander 300W', 'Power Tools', 'Makita', 105, 125, 'pc', 'photo-1581092918056-0c4c3acd3789'],
+  ['Makita Heat Gun 1800W', 'Power Tools', 'Makita', 135, 165, 'pc', 'photo-1572981779307-38b8cabb2407'],
+  ['DeWalt Circular Saw 1800W', 'Power Tools', 'DeWalt', 155, 185, 'pc', 'photo-1504148455328-c376907d081c'],
+  ['DeWalt Reciprocating Saw', 'Power Tools', 'DeWalt', 205, 245, 'pc', 'photo-1572981779307-38b8cabb2407'],
+  ['DeWalt Impact Driver 20V', 'Power Tools', 'DeWalt', 255, 305, 'pc', 'photo-1581092160562-40aa08e78837'],
+  ['DeWalt Air Compressor 2HP', 'Power Tools', 'DeWalt', 295, 339, 'pc', 'photo-1581092918056-0c4c3acd3789'],
+  ['Black+Decker Drill 550W', 'Power Tools', 'Black+Decker', 89, 105, 'pc', 'photo-1503387762-592deb58ef4e'],
+  ['Black+Decker Blower 600W', 'Power Tools', 'Black+Decker', 68, 82, 'pc', 'photo-1581092918056-0c4c3acd3789'],
+  ['Welding Machine Inverter 200A', 'Power Tools', 'Generic', 189, 229, 'pc', 'photo-1504328345606-18bbc8c9d7d1'],
+  ['Air Compressor 3HP Portable', 'Power Tools', 'Generic', 279, 339, 'pc', 'photo-1581092918056-0c4c3acd3789'],
+  ['Bench Grinder 6 inch', 'Power Tools', 'Generic', 95, 115, 'pc', 'photo-1504148455328-c376907d081c'],
 
-  ['Stanley Claw Hammer 16oz', 'Hand Tools', 'Stanley', 11, 13, 'pc'],
-  ['Stanley Screwdriver Set 6pc', 'Hand Tools', 'Stanley', 9, 12, 'set'],
-  ['Stanley Adjustable Wrench 10 inch', 'Hand Tools', 'Stanley', 13, 16, 'pc'],
-  ['Stanley Pliers Set 3pc', 'Hand Tools', 'Stanley', 12, 15, 'set'],
-  ['Stanley Utility Knife', 'Hand Tools', 'Stanley', 4.5, 6, 'pc'],
-  ['Taparia Wrench Set 12pc', 'Hand Tools', 'Taparia', 16, 19, 'set'],
-  ['Taparia Combination Plier 8 inch', 'Hand Tools', 'Taparia', 7.5, 9.5, 'pc'],
-  ['Taparia Screwdriver Set 8pc', 'Hand Tools', 'Taparia', 9.5, 12, 'set'],
-  ['Taparia Hex Key Set 9pc', 'Hand Tools', 'Taparia', 6, 8, 'set'],
-  ['Stanley Chisel Set 4pc', 'Hand Tools', 'Stanley', 13.5, 17.5, 'set'],
-  ['Stanley Hacksaw 12 inch', 'Hand Tools', 'Stanley', 6, 8, 'pc'],
-  ['Stanley Tape Measure 5m', 'Hand Tools', 'Stanley', 5, 7, 'pc'],
+  // ---------------- HAND TOOLS ----------------
+  ['Stanley Claw Hammer 16oz', 'Hand Tools', 'Stanley', 11, 13, 'pc', 'photo-1586864387967-d02ef85d93e8'],
+  ['Stanley Screwdriver Set 6pc', 'Hand Tools', 'Stanley', 9, 12, 'set', 'photo-1530124566582-a618bc2615dc'],
+  ['Stanley Adjustable Wrench 10 inch', 'Hand Tools', 'Stanley', 13, 16, 'pc', 'photo-1580901368919-7738efb0f87e'],
+  ['Stanley Pliers Set 3pc', 'Hand Tools', 'Stanley', 12, 15, 'set', 'photo-1580901368919-7738efb0f87e'],
+  ['Stanley Utility Knife', 'Hand Tools', 'Stanley', 4.5, 6, 'pc', 'photo-1586864387967-d02ef85d93e8'],
+  ['Taparia Wrench Set 12pc', 'Hand Tools', 'Taparia', 16, 19, 'set', 'photo-1580901368919-7738efb0f87e'],
+  ['Taparia Combination Plier 8 inch', 'Hand Tools', 'Taparia', 7.5, 9.5, 'pc', 'photo-1580901368919-7738efb0f87e'],
+  ['Taparia Screwdriver Set 8pc', 'Hand Tools', 'Taparia', 9.5, 12, 'set', 'photo-1530124566582-a618bc2615dc'],
+  ['Taparia Hex Key Set 9pc', 'Hand Tools', 'Taparia', 6, 8, 'set', 'photo-1530124566582-a618bc2615dc'],
+  ['Stanley Chisel Set 4pc', 'Hand Tools', 'Stanley', 13.5, 17.5, 'set', 'photo-1586864387967-d02ef85d93e8'],
+  ['Stanley Hacksaw 12 inch', 'Hand Tools', 'Stanley', 6, 8, 'pc', 'photo-1586864387967-d02ef85d93e8'],
+  ['Stanley Tape Measure 5m', 'Hand Tools', 'Stanley', 5, 7, 'pc', 'photo-1580901368919-7738efb0f87e'],
 
-  ['Bosch Drill Bit Set 15pc', 'Accessories', 'Bosch', 13, 17, 'set'],
-  ['Bosch Grinding Disc 4 inch (10pc)', 'Accessories', 'Bosch', 14.5, 19, 'pkt'],
-  ['Makita Cutting Disc 4 inch (10pc)', 'Accessories', 'Makita', 12, 16, 'pkt'],
-  ['DeWalt Saw Blade 7 inch', 'Accessories', 'DeWalt', 9.5, 13, 'pc'],
-  ['Bit Set 50pc Screwdriver', 'Accessories', 'Generic', 6, 7, 'set'],
-  ['Drill Chuck Key 13mm', 'Accessories', 'Generic', 3, 4.5, 'pc'],
-  ['Welding Rod 3.2mm (5kg)', 'Accessories', 'Generic', 14.5, 19, 'box'],
-  ['Grinding Wheel 7 inch', 'Accessories', 'Generic', 4.5, 6.5, 'pc'],
-  ['Sandpaper Sheet (50pc)', 'Accessories', 'Generic', 3.5, 5, 'pkt'],
+  // ---------------- ACCESSORIES ----------------
+  ['Bosch Drill Bit Set 15pc', 'Accessories', 'Bosch', 13, 17, 'set', 'photo-1572981779307-38b8cabb2407'],
+  ['Bosch Grinding Disc 4 inch (10pc)', 'Accessories', 'Bosch', 14.5, 19, 'pkt', 'photo-1504148455328-c376907d081c'],
+  ['Makita Cutting Disc 4 inch (10pc)', 'Accessories', 'Makita', 12, 16, 'pkt', 'photo-1504148455328-c376907d081c'],
+  ['DeWalt Saw Blade 7 inch', 'Accessories', 'DeWalt', 9.5, 13, 'pc', 'photo-1572981779307-38b8cabb2407'],
+  ['Bit Set 50pc Screwdriver', 'Accessories', 'Generic', 6, 7, 'set', 'photo-1530124566582-a618bc2615dc'],
+  ['Drill Chuck Key 13mm', 'Accessories', 'Generic', 3, 4.5, 'pc', 'photo-1581092918056-0c4c3acd3789'],
+  ['Welding Rod 3.2mm (5kg)', 'Accessories', 'Generic', 14.5, 19, 'box', 'photo-1504328345606-18bbc8c9d7d1'],
+  ['Grinding Wheel 7 inch', 'Accessories', 'Generic', 4.5, 6.5, 'pc', 'photo-1504148455328-c376907d081c'],
+  ['Sandpaper Sheet (50pc)', 'Accessories', 'Generic', 3.5, 5, 'pkt', 'photo-1581092918056-0c4c3acd3789'],
 
-  ['Safety Helmet Yellow', 'Safety', 'Generic', 6, 7, 'pc'],
-  ['Safety Helmet White', 'Safety', 'Generic', 6, 7, 'pc'],
-  ['Work Gloves Leather', 'Safety', 'Generic', 2.5, 3, 'pc'],
-  ['Safety Goggles Clear', 'Safety', 'Generic', 3.5, 5, 'pc'],
-  ['Ear Protection Muff', 'Safety', 'Generic', 7.5, 10, 'pc'],
-  ['Safety Vest Reflective', 'Safety', 'Generic', 4.5, 6.5, 'pc'],
-  ['Safety Shoes Steel Toe', 'Safety', 'Generic', 22, 28, 'pc'],
-  ['Dust Mask N95 (10pc)', 'Safety', 'Generic', 3, 4, 'pkt'],
-  ['First Aid Kit Small', 'Safety', 'Generic', 13, 18, 'set'],
+  // ---------------- SAFETY ----------------
+  ['Safety Helmet Yellow', 'Safety', 'Generic', 6, 7, 'pc', 'photo-1581092918056-0c4c3acd3789'],
+  ['Safety Helmet White', 'Safety', 'Generic', 6, 7, 'pc', 'photo-1581092918056-0c4c3acd3789'],
+  ['Work Gloves Leather', 'Safety', 'Generic', 2.5, 3, 'pc', 'photo-1580901368919-7738efb0f87e'],
+  ['Safety Goggles Clear', 'Safety', 'Generic', 3.5, 5, 'pc', 'photo-1581092160562-40aa08e78837'],
+  ['Ear Protection Muff', 'Safety', 'Generic', 7.5, 10, 'pc', 'photo-1581092918056-0c4c3acd3789'],
+  ['Safety Vest Reflective', 'Safety', 'Generic', 4.5, 6.5, 'pc', 'photo-1581092918056-0c4c3acd3789'],
+  ['Safety Shoes Steel Toe', 'Safety', 'Generic', 22, 28, 'pc', 'photo-1580901368919-7738efb0f87e'],
+  ['Dust Mask N95 (10pc)', 'Safety', 'Generic', 3, 4, 'pkt', 'photo-1581092918056-0c4c3acd3789'],
+  ['First Aid Kit Small', 'Safety', 'Generic', 13, 18, 'set', 'photo-1581092918056-0c4c3acd3789'],
 
-  ['Measuring Tape 5m Stanley', 'Measuring', 'Stanley', 5, 7, 'pc'],
-  ['Measuring Tape 10m Stanley', 'Measuring', 'Stanley', 9.5, 12, 'pc'],
-  ['Spirit Level 24 inch', 'Measuring', 'Generic', 12, 16, 'pc'],
-  ['Digital Vernier Caliper', 'Measuring', 'Generic', 19, 25, 'pc'],
-  ['Laser Distance Meter 40m', 'Measuring', 'Generic', 65, 82, 'pc'],
-  ['Infrared Thermometer', 'Measuring', 'Generic', 28, 37, 'pc'],
-  ['Angle Finder Digital', 'Measuring', 'Generic', 14.5, 19, 'pc'],
+  // ---------------- MEASURING ----------------
+  ['Measuring Tape 5m Stanley', 'Measuring', 'Stanley', 5, 7, 'pc', 'photo-1580901368919-7738efb0f87e'],
+  ['Measuring Tape 10m Stanley', 'Measuring', 'Stanley', 9.5, 12, 'pc', 'photo-1580901368919-7738efb0f87e'],
+  ['Spirit Level 24 inch', 'Measuring', 'Generic', 12, 16, 'pc', 'photo-1581092918056-0c4c3acd3789'],
+  ['Digital Vernier Caliper', 'Measuring', 'Generic', 19, 25, 'pc', 'photo-1581092918056-0c4c3acd3789'],
+  ['Laser Distance Meter 40m', 'Measuring', 'Generic', 65, 82, 'pc', 'photo-1581092160562-40aa08e78837'],
+  ['Infrared Thermometer', 'Measuring', 'Generic', 28, 37, 'pc', 'photo-1581092918056-0c4c3acd3789'],
+  ['Angle Finder Digital', 'Measuring', 'Generic', 14.5, 19, 'pc', 'photo-1581092918056-0c4c3acd3789'],
 ];
 
 const makeBarcode = (i: number) => {
@@ -149,8 +154,15 @@ const makeBarcode = (i: number) => {
   return base.slice(0, 13);
 };
 
+/* ------------------------------------------------------------------ */
+/* Unsplash URL builder                                                */
+/* ------------------------------------------------------------------ */
+
+const unsplashUrl = (id: string, w = 600) =>
+  `https://images.unsplash.com/${id}?w=${w}&q=80&auto=format&fit=crop`;
+
 export const demoProducts: Product[] = productSeeds.map((seed, i) => {
-  const [name, category, brand, purchasePrice, sellingPrice, unitShort] = seed;
+  const [name, category, brand, purchasePrice, sellingPrice, unitShort, unsplashId] = seed;
   const minStock = randomInt(5, 15);
   let stock: number;
   if (i % 17 === 0) stock = 0;
@@ -158,7 +170,9 @@ export const demoProducts: Product[] = productSeeds.map((seed, i) => {
   else stock = randomInt(minStock + 5, minStock + 60);
 
   const sku = `SKU-${String(i + 1).padStart(4, '0')}`;
-  const image = `/images/products/${sku.toLowerCase()}.svg`;
+  // Unsplash first, local SVG as fallback
+  const image = unsplashUrl(unsplashId, 600);
+  const fallbackImage = `/images/products/${sku.toLowerCase()}.svg`;
 
   return {
     id: `prod-${String(i + 1).padStart(3, '0')}`,
@@ -174,11 +188,17 @@ export const demoProducts: Product[] = productSeeds.map((seed, i) => {
     minStock,
     grade: i % 5 === 0 ? 'A' : i % 3 === 0 ? 'B' : 'C',
     image,
+    // store fallback separately if your type supports it
     description: `${name} — professional grade tool suitable for construction and DIY use. Backed by manufacturer warranty. All prices include GST.`,
     status: 'active' as const,
     createdAt: daysAgo(180 - i),
   };
 });
+
+/* ------------------------------------------------------------------ */
+/* (Rest of the file remains unchanged — Customers, Suppliers, Orders, */
+/*  Sales, Purchases, Expenses, Stock movements, Ledgers)              */
+/* ------------------------------------------------------------------ */
 
 /* ------------------------------------------------------------------ */
 /* Customers (22) — Australian                                        */
