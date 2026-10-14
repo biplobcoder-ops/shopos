@@ -40,7 +40,8 @@ export function WebsiteProductCard({ product, quickAdd = true, className }: Prop
   return (
     <Card
       className={cn(
-        'group overflow-hidden flex flex-col transition-shadow hover:shadow-lg',
+        'group overflow-hidden flex flex-col transition-all duration-200',
+        'hover:shadow-lg hover:border-primary/40',
         className
       )}
     >
@@ -61,12 +62,12 @@ export function WebsiteProductCard({ product, quickAdd = true, className }: Prop
               </Badge>
             )}
             {lowStock && (
-              <Badge className="text-[10px] px-1.5 py-0.5 h-5 bg-safety-100 text-safety-700 border-0 hover:bg-safety-100">
+              <Badge className="text-[10px] px-1.5 py-0.5 h-5 bg-accent/15 text-accent border-0 hover:bg-accent/15">
                 Low stock
               </Badge>
             )}
             {product.grade === 'A' && !outOfStock && (
-              <Badge className="text-[10px] px-1.5 py-0.5 h-5 bg-brand-600 text-white border-0 hover:bg-brand-600">
+              <Badge className="text-[10px] px-1.5 py-0.5 h-5 bg-primary text-primary-foreground border-0 hover:bg-primary">
                 Top pick
               </Badge>
             )}
@@ -76,7 +77,7 @@ export function WebsiteProductCard({ product, quickAdd = true, className }: Prop
             <Button
               size="icon"
               onClick={handleAdd}
-              className="absolute bottom-2 right-2 h-10 w-10 rounded-full shadow-md md:opacity-0 md:group-hover:opacity-100 md:focus-visible:opacity-100 transition-opacity"
+              className="absolute bottom-2 right-2 h-10 w-10 rounded-full shadow-md bg-primary text-primary-foreground hover:bg-primary/90 md:opacity-0 md:group-hover:opacity-100 md:focus-visible:opacity-100 transition-opacity"
               aria-label={`Add ${product.name} to cart`}
             >
               <ShoppingCart className="h-4 w-4" />
@@ -88,16 +89,18 @@ export function WebsiteProductCard({ product, quickAdd = true, className }: Prop
           <div className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">
             {product.brand}
           </div>
-          <div className="text-sm font-medium leading-snug line-clamp-2 mt-1 min-h-[2.6em] group-hover:text-brand-600 dark:group-hover:text-brand-300 transition-colors">
+          <div className="text-sm font-medium leading-snug line-clamp-2 mt-1 min-h-[2.6em] group-hover:text-primary transition-colors">
             {product.name}
           </div>
 
           <div className="flex items-center gap-1 mt-2 text-[11px] text-muted-foreground">
             <Package className="h-3 w-3 shrink-0" />
             {outOfStock ? (
-              <span className="text-red-600 font-medium">Currently unavailable</span>
+              <span className="text-destructive font-medium">Currently unavailable</span>
             ) : (
-              <span className="truncate">In stock · {product.stock} {product.unit}</span>
+              <span className="truncate">
+                In stock · {product.stock} {product.unit}
+              </span>
             )}
           </div>
 
@@ -116,7 +119,10 @@ export function WebsiteProductCard({ product, quickAdd = true, className }: Prop
                 variant={outOfStock ? 'outline' : 'default'}
                 disabled={outOfStock}
                 onClick={handleAdd}
-                className="h-9 text-xs md:hidden"
+                className={cn(
+                  'h-9 text-xs md:hidden',
+                  !outOfStock && 'bg-primary text-primary-foreground hover:bg-primary/90'
+                )}
               >
                 <ShoppingCart className="h-3.5 w-3.5 mr-1" />
                 Add
