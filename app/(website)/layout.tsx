@@ -10,7 +10,7 @@ export default function WebsiteLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen flex flex-col bg-background">
+    <div className="website-theme min-h-screen flex flex-col bg-background text-foreground">
       <WebsiteNavbar />
       <main className="flex-1">{children}</main>
       <WebsiteFooter />
