@@ -62,23 +62,30 @@ export function WebsiteNavbar() {
 
   return (
     <>
-      {/* Utility bar */}
-      <div className="bg-brand-950 text-white/90 text-[11px] md:text-xs">
+      {/* Utility bar — deep navy background */}
+      <div className="bg-primary text-primary-foreground text-[11px] md:text-xs">
         <div className="container mx-auto flex h-8 items-center justify-between gap-4">
           <div className="flex items-center gap-2 truncate">
-            <Truck className="h-3.5 w-3.5 text-safety-400 shrink-0" />
+            <Truck className="h-3.5 w-3.5 text-accent shrink-0" />
             <span className="truncate">
               Free delivery on orders over ${FREE_DELIVERY_THRESHOLD} (inc. GST)
             </span>
           </div>
           <div className="hidden md:flex items-center gap-5">
-            <Link href="/help" className="hover:text-white">Delivery &amp; Returns</Link>
-            <Link href="/contact" className="inline-flex items-center gap-1.5 hover:text-white">
+            <Link href="/help" className="hover:text-accent transition-colors">
+              Delivery &amp; Returns
+            </Link>
+            <Link href="/contact" className="inline-flex items-center gap-1.5 hover:text-accent transition-colors">
               <Store className="h-3.5 w-3.5" />
               Store Locator
             </Link>
-            <Link href="/register" className="hover:text-white">Trade Account</Link>
-            <a href={`tel:${SUPPORT_PHONE_DISPLAY.replace(/\s/g, '')}`} className="inline-flex items-center gap-1.5 hover:text-white">
+            <Link href="/register" className="hover:text-accent transition-colors">
+              Trade Account
+            </Link>
+            <a
+              href={`tel:${SUPPORT_PHONE_DISPLAY.replace(/\s/g, '')}`}
+              className="inline-flex items-center gap-1.5 hover:text-accent transition-colors"
+            >
               <Phone className="h-3.5 w-3.5" />
               {SUPPORT_PHONE_DISPLAY}
             </a>
@@ -99,15 +106,19 @@ export function WebsiteNavbar() {
             <Menu className="h-5 w-5" />
           </Button>
 
-          <Link href="/" className="flex items-center gap-2.5 shrink-0" aria-label={`${businessInfo.name} home`}>
-            <div className="h-10 w-10 rounded-lg bg-brand-600 text-white flex items-center justify-center shadow-sm">
+          <Link
+            href="/"
+            className="flex items-center gap-2.5 shrink-0"
+            aria-label={`${businessInfo.name} home`}
+          >
+            <div className="h-10 w-10 rounded-lg bg-primary text-primary-foreground flex items-center justify-center shadow-sm">
               <Wrench className="h-5 w-5" />
             </div>
             <div className="leading-none">
-              <div className="text-[15px] md:text-base font-extrabold tracking-tight text-brand-600 dark:text-brand-300">
+              <div className="text-[15px] md:text-base font-extrabold tracking-tight text-primary">
                 Southern Cross
               </div>
-              <div className="text-[9px] md:text-[10px] font-semibold uppercase tracking-[0.18em] text-safety-600 dark:text-safety-400 mt-1">
+              <div className="text-[9px] md:text-[10px] font-semibold uppercase tracking-[0.18em] text-accent mt-1">
                 Tools &amp; Hardware
               </div>
             </div>
@@ -123,7 +134,11 @@ export function WebsiteNavbar() {
                 className="h-11 pl-10 pr-24 rounded-full bg-muted/50 border-transparent focus-visible:bg-background"
                 aria-label="Search products"
               />
-              <Button type="submit" size="sm" className="absolute right-1 top-1/2 -translate-y-1/2 h-9 rounded-full px-4">
+              <Button
+                type="submit"
+                size="sm"
+                className="absolute right-1 top-1/2 -translate-y-1/2 h-9 rounded-full px-4 bg-primary text-primary-foreground hover:bg-primary/90"
+              >
                 Search
               </Button>
             </div>
@@ -156,7 +171,7 @@ export function WebsiteNavbar() {
             >
               <ShoppingCart className="h-5 w-5" />
               {count > 0 && (
-                <span className="absolute -top-0.5 -right-0.5 h-5 min-w-5 px-1 rounded-full bg-safety-500 text-white text-[10px] font-bold flex items-center justify-center">
+                <span className="absolute -top-0.5 -right-0.5 h-5 min-w-5 px-1 rounded-full bg-accent text-accent-foreground text-[10px] font-bold flex items-center justify-center">
                   {count > 99 ? '99+' : count}
                 </span>
               )}
@@ -188,8 +203,11 @@ export function WebsiteNavbar() {
           </div>
         )}
 
-        {/* Category strip (desktop) */}
-        <nav className="hidden lg:block border-t border-border bg-brand-600 text-white" aria-label="Main">
+        {/* Category strip (desktop) — deep navy bar */}
+        <nav
+          className="hidden lg:block border-t border-border bg-primary text-primary-foreground"
+          aria-label="Main"
+        >
           <div className="container mx-auto flex items-center gap-1 h-11">
             {CATEGORIES.map((c) => (
               <Link
@@ -202,11 +220,18 @@ export function WebsiteNavbar() {
             ))}
             <div className="mx-2 h-5 w-px bg-white/20" />
             {MAIN_LINKS.slice(1).map((l) => (
-              <Link key={l.href} href={l.href} className="px-3 h-full inline-flex items-center text-sm text-white/80 hover:text-white hover:bg-white/10 transition-colors">
+              <Link
+                key={l.href}
+                href={l.href}
+                className="px-3 h-full inline-flex items-center text-sm text-white/80 hover:text-white hover:bg-white/10 transition-colors"
+              >
                 {l.label}
               </Link>
             ))}
-            <Link href="/shop?category=Safety" className="ml-auto px-4 h-8 inline-flex items-center rounded-full bg-safety-500 hover:bg-safety-600 text-sm font-semibold transition-colors">
+            <Link
+              href="/shop?category=Safety"
+              className="ml-auto px-4 h-8 inline-flex items-center rounded-full bg-accent text-accent-foreground hover:bg-accent/90 text-sm font-semibold transition-colors"
+            >
               Safety Sale
             </Link>
           </div>
@@ -217,12 +242,14 @@ export function WebsiteNavbar() {
       <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
         <SheetContent side="left" className="p-0 w-[88vw] max-w-[320px] flex flex-col">
           <div className="flex items-center gap-2.5 h-16 border-b border-border px-4">
-            <div className="h-9 w-9 rounded-lg bg-brand-600 text-white flex items-center justify-center">
+            <div className="h-9 w-9 rounded-lg bg-primary text-primary-foreground flex items-center justify-center">
               <Wrench className="h-4 w-4" />
             </div>
             <div className="leading-none">
-              <div className="text-sm font-extrabold text-brand-600 dark:text-brand-300">Southern Cross</div>
-              <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-safety-600 mt-1">Tools &amp; Hardware</div>
+              <div className="text-sm font-extrabold text-primary">Southern Cross</div>
+              <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-accent mt-1">
+                Tools &amp; Hardware
+              </div>
             </div>
           </div>
 
@@ -236,7 +263,7 @@ export function WebsiteNavbar() {
                   key={c.slug}
                   href={`/shop?category=${encodeURIComponent(c.slug)}`}
                   onClick={() => setMobileOpen(false)}
-                  className="flex items-center justify-between rounded-lg px-3 py-3 text-sm font-medium hover:bg-accent"
+                  className="flex items-center justify-between rounded-lg px-3 py-3 text-sm font-medium hover:bg-accent/10"
                 >
                   {c.name}
                   <ChevronRight className="h-4 w-4 text-muted-foreground" />
@@ -257,7 +284,7 @@ export function WebsiteNavbar() {
                   key={l.href}
                   href={l.href}
                   onClick={() => setMobileOpen(false)}
-                  className="flex items-center rounded-lg px-3 py-3 text-sm hover:bg-accent"
+                  className="flex items-center rounded-lg px-3 py-3 text-sm hover:bg-accent/10"
                 >
                   {l.label}
                 </Link>
@@ -266,11 +293,19 @@ export function WebsiteNavbar() {
           </div>
 
           <div className="border-t border-border p-4 space-y-2">
-            <a href={`tel:${SUPPORT_PHONE_DISPLAY.replace(/\s/g, '')}`} className="flex items-center gap-2 text-sm font-semibold">
-              <Phone className="h-4 w-4 text-safety-600" />
+            <a
+              href={`tel:${SUPPORT_PHONE_DISPLAY.replace(/\s/g, '')}`}
+              className="flex items-center gap-2 text-sm font-semibold"
+            >
+              <Phone className="h-4 w-4 text-accent" />
               {SUPPORT_PHONE_DISPLAY}
             </a>
-            <Button asChild variant="outline" className="w-full h-10" onClick={() => setMobileOpen(false)}>
+            <Button
+              asChild
+              variant="outline"
+              className="w-full h-10"
+              onClick={() => setMobileOpen(false)}
+            >
               <Link href="/login">Staff sign in</Link>
             </Button>
           </div>
