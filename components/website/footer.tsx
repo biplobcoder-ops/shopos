@@ -67,13 +67,17 @@ export function WebsiteFooter() {
   };
 
   return (
-    <footer className="mt-auto bg-brand-950 text-white/80">
+    <footer className="mt-auto bg-primary text-primary-foreground/80">
       {/* Newsletter band */}
       <div className="border-b border-white/10">
         <div className="container mx-auto py-8 flex flex-col md:flex-row md:items-center justify-between gap-5">
           <div className="space-y-1">
-            <h3 className="text-base md:text-lg font-bold text-white">Weekly tool specials, straight to your inbox</h3>
-            <p className="text-xs md:text-sm text-white/60">Power tool deals, new arrivals and job-site tips. Unsubscribe any time.</p>
+            <h3 className="text-base md:text-lg font-bold text-primary-foreground">
+              Weekly tool specials, straight to your inbox
+            </h3>
+            <p className="text-xs md:text-sm text-primary-foreground/60">
+              Power tool deals, new arrivals and job-site tips. Unsubscribe any time.
+            </p>
           </div>
           <form onSubmit={subscribe} className="flex gap-2 w-full md:w-auto md:min-w-[380px]">
             <Input
@@ -81,10 +85,13 @@ export function WebsiteFooter() {
               placeholder="you@company.com.au"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="h-11 flex-1 bg-white/5 border-white/15 text-white placeholder:text-white/40"
+              className="h-11 flex-1 bg-white/5 border-white/15 text-primary-foreground placeholder:text-primary-foreground/40"
               aria-label="Email address"
             />
-            <Button type="submit" className="h-11 shrink-0 bg-safety-500 hover:bg-safety-600 text-white">
+            <Button
+              type="submit"
+              className="h-11 shrink-0 bg-accent text-accent-foreground hover:bg-accent/90"
+            >
               Subscribe
               <ArrowRight className="h-3.5 w-3.5 ml-1.5" />
             </Button>
@@ -97,17 +104,21 @@ export function WebsiteFooter() {
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8">
           <div className="col-span-2 lg:col-span-2 space-y-4">
             <Link href="/" className="flex items-center gap-2.5">
-              <div className="h-10 w-10 rounded-lg bg-white text-brand-600 flex items-center justify-center">
+              <div className="h-10 w-10 rounded-lg bg-primary-foreground text-primary flex items-center justify-center">
                 <Wrench className="h-5 w-5" />
               </div>
               <div className="leading-none">
-                <div className="text-base font-extrabold text-white">Southern Cross</div>
-                <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-safety-400 mt-1">Tools &amp; Hardware</div>
+                <div className="text-base font-extrabold text-primary-foreground">
+                  Southern Cross
+                </div>
+                <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-accent mt-1">
+                  Tools &amp; Hardware
+                </div>
               </div>
             </Link>
-            <p className="text-sm text-white/60 leading-relaxed max-w-sm">
-              Professional power tools, hand tools, safety gear and measuring equipment for Australian builders,
-              trades and DIY enthusiasts. Pricing shown in AUD including GST.
+            <p className="text-sm text-primary-foreground/60 leading-relaxed max-w-sm">
+              Professional power tools, hand tools, safety gear and measuring equipment for
+              Australian builders, trades and DIY enthusiasts. Pricing shown in AUD including GST.
             </p>
             <div className="flex items-center gap-1">
               {SOCIAL.map((s) => (
@@ -115,7 +126,7 @@ export function WebsiteFooter() {
                   key={s.label}
                   href={s.href}
                   aria-label={s.label}
-                  className="h-9 w-9 rounded-md flex items-center justify-center text-white/70 hover:bg-white/10 hover:text-white transition-colors"
+                  className="h-9 w-9 rounded-md flex items-center justify-center text-primary-foreground/70 hover:bg-white/10 hover:text-primary-foreground transition-colors"
                 >
                   <s.icon className="h-4 w-4" />
                 </a>
@@ -130,26 +141,28 @@ export function WebsiteFooter() {
 
         <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6 border-t border-white/10 pt-8 text-sm">
           <div className="flex items-start gap-2.5">
-            <MapPin className="h-4 w-4 shrink-0 mt-0.5 text-safety-400" />
+            <MapPin className="h-4 w-4 shrink-0 mt-0.5 text-accent" />
             <div>
-              <div className="font-semibold text-white">Head office &amp; showroom</div>
-              <div className="text-white/60">{businessInfo.address}</div>
+              <div className="font-semibold text-primary-foreground">Head office &amp; showroom</div>
+              <div className="text-primary-foreground/60">{businessInfo.address}</div>
             </div>
           </div>
           <div className="flex items-start gap-2.5">
-            <Phone className="h-4 w-4 shrink-0 mt-0.5 text-safety-400" />
+            <Phone className="h-4 w-4 shrink-0 mt-0.5 text-accent" />
             <div>
-              <div className="font-semibold text-white">Call us</div>
-              <div className="text-white/60">{businessInfo.phone}</div>
-              <div className="text-white/60 text-xs mt-0.5">Trade enquiries: {SUPPORT_PHONE_DISPLAY}</div>
+              <div className="font-semibold text-primary-foreground">Call us</div>
+              <div className="text-primary-foreground/60">{businessInfo.phone}</div>
+              <div className="text-primary-foreground/60 text-xs mt-0.5">
+                Trade enquiries: {SUPPORT_PHONE_DISPLAY}
+              </div>
             </div>
           </div>
           <div className="flex items-start gap-2.5">
-            <Clock className="h-4 w-4 shrink-0 mt-0.5 text-safety-400" />
+            <Clock className="h-4 w-4 shrink-0 mt-0.5 text-accent" />
             <div>
-              <div className="font-semibold text-white">Opening hours</div>
+              <div className="font-semibold text-primary-foreground">Opening hours</div>
               {STORE_HOURS.map((h) => (
-                <div key={h.days} className="text-white/60 text-xs">
+                <div key={h.days} className="text-primary-foreground/60 text-xs">
                   {h.days}: {h.hours}
                 </div>
               ))}
@@ -159,13 +172,15 @@ export function WebsiteFooter() {
       </div>
 
       <div className="border-t border-white/10">
-        <div className="container mx-auto py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/50">
+        <div className="container mx-auto py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-primary-foreground/50">
           <div className="flex items-center gap-2 flex-wrap justify-center sm:justify-start">
-            <span>© {new Date().getFullYear()} {businessInfo.name}.</span>
+            <span>
+              © {new Date().getFullYear()} {businessInfo.name}.
+            </span>
             <span className="hidden sm:inline">·</span>
             <span>{businessInfo.vatNumber}</span>
           </div>
-          <div className="flex items-center gap-2 text-white/40">
+          <div className="flex items-center gap-2 text-primary-foreground/40">
             <Mail className="h-3.5 w-3.5" />
             <span>{businessInfo.email}</span>
           </div>
@@ -175,14 +190,25 @@ export function WebsiteFooter() {
   );
 }
 
-function FooterColumn({ title, links }: { title: string; links: { href: string; label: string }[] }) {
+function FooterColumn({
+  title,
+  links,
+}: {
+  title: string;
+  links: { href: string; label: string }[];
+}) {
   return (
     <div className="space-y-3">
-      <h4 className="text-xs font-semibold uppercase tracking-wider text-white">{title}</h4>
+      <h4 className="text-xs font-semibold uppercase tracking-wider text-primary-foreground">
+        {title}
+      </h4>
       <ul className="space-y-2.5">
         {links.map((l) => (
           <li key={l.href}>
-            <Link href={l.href} className="text-sm text-white/60 hover:text-white transition-colors">
+            <Link
+              href={l.href}
+              className="text-sm text-primary-foreground/60 hover:text-primary-foreground transition-colors"
+            >
               {l.label}
             </Link>
           </li>
