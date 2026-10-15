@@ -37,27 +37,28 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         const valid = await verifyPassword(password, user.password);
         if (!valid) return null;
 
+        // ✅ No more `as any` — types are declared in types/next-auth.d.ts
         return {
           id: user.id,
           name: user.name,
           email: user.email,
           role: user.role,
-        } as any;
+        };
       },
     }),
   ],
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        token.id = (user as any).id;
-        token.role = (user as any).role;
+        token.id = user.id;
+        token.role = user.role;
       }
       return token;
     },
     async session({ session, token }) {
       if (session.user) {
-        (session.user as any).id = token.id as string;
-        (session.user as any).role = token.role as Role;
+        session.user.id = token.id as string;
+        session.user.role = token.role as Role;
       }
       return session;
     },
