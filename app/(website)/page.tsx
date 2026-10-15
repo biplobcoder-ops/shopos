@@ -8,13 +8,13 @@ import {
   Headphones,
   Store,
   RotateCcw,
-  BadgeCheck,
 } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { WebsiteProductCard } from '@/components/website/product-card';
+import { HeroSlider } from '@/components/website/hero-slider';
 import { demoProducts, demoCategories, demoBrands } from '@/lib/demo-data';
-import { CATEGORY_IMAGES, HERO_IMAGE } from '@/lib/product-image';
+import { CATEGORY_IMAGES } from '@/lib/product-image';
 import { FREE_DELIVERY_THRESHOLD, SUPPORT_PHONE_DISPLAY } from '@/lib/constants';
 
 export default function HomePage() {
@@ -33,59 +33,8 @@ export default function HomePage() {
 
   return (
     <div className="flex flex-col">
-      {/* ============ HERO ============ */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-primary/80 text-primary-foreground">
-        <div className="container mx-auto px-3 sm:px-4 grid grid-cols-1 lg:grid-cols-2 items-center gap-6 sm:gap-8 lg:gap-12 py-8 sm:py-10 md:py-16 lg:py-20">
-          <div className="space-y-4 sm:space-y-5 md:space-y-6">
-            <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-[11px] sm:text-xs font-medium backdrop-blur">
-              <BadgeCheck className="h-3.5 w-3.5 text-accent shrink-0" />
-              <span className="truncate">Proudly serving Australian builders &amp; trades</span>
-            </span>
-            <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.1]">
-              Tools built for<br className="hidden sm:block" /> the job site.
-            </h1>
-            <p className="max-w-lg text-sm md:text-base text-primary-foreground/75 leading-relaxed">
-              Power tools, hand tools, safety gear and measuring equipment from trusted brands —
-              priced in AUD including GST, with fast delivery across Australia.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-3 pt-1">
-              <Button
-                asChild
-                size="lg"
-                className="h-11 sm:h-12 w-full sm:w-auto bg-accent text-accent-foreground hover:bg-accent/90 font-semibold"
-              >
-                <Link href="/shop">
-                  Shop all tools
-                  <ArrowRight className="h-4 w-4 ml-2" />
-                </Link>
-              </Button>
-              <Button
-                asChild
-                size="lg"
-                variant="outline"
-                className="h-11 sm:h-12 w-full sm:w-auto bg-transparent border-white/30 text-primary-foreground hover:bg-white/10 hover:text-primary-foreground"
-              >
-                <Link href="/register">Open a trade account</Link>
-              </Button>
-            </div>
-            <div className="grid grid-cols-3 gap-3 sm:gap-4 pt-4 max-w-md border-t border-white/15">
-              <Stat value={`${active.length}+`} label="Products" />
-              <Stat value={`${demoBrands.length - 1}`} label="Brands" />
-              <Stat value={`${demoCategories.length}`} label="Categories" />
-            </div>
-          </div>
-
-          <div className="relative order-first lg:order-last">
-            <div className="absolute -inset-4 rounded-3xl bg-accent/10 blur-2xl" aria-hidden />
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={HERO_IMAGE}
-              alt="Drill, hammer, spirit level and tape measure illustration"
-              className="relative w-full h-auto rounded-2xl shadow-2xl ring-1 ring-white/10"
-            />
-          </div>
-        </div>
-      </section>
+      {/* ============ HERO SLIDER ============ */}
+      <HeroSlider />
 
       {/* ============ SERVICE BAND ============ */}
       <section className="border-b border-border bg-background">
@@ -110,7 +59,11 @@ export default function HomePage() {
 
       {/* ============ CATEGORIES ============ */}
       <section className="container mx-auto px-3 sm:px-4 py-8 sm:py-10 md:py-14">
-        <SectionHeading title="Shop by category" subtitle="Find the right tool for the job" href="/shop" />
+        <SectionHeading
+          title="Shop by category"
+          subtitle="Find the right tool for the job"
+          href="/shop"
+        />
         <div className="grid grid-cols-2 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2.5 sm:gap-3 md:gap-4">
           {demoCategories.map((c) => {
             const count = active.filter((p) => p.category === c.name).length;
@@ -131,7 +84,9 @@ export default function HomePage() {
                 </div>
                 <div className="flex items-center justify-between gap-2 p-2.5 sm:p-3 md:p-4">
                   <div className="min-w-0">
-                    <div className="text-[12px] sm:text-sm font-semibold truncate">{c.name}</div>
+                    <div className="text-[12px] sm:text-sm font-semibold truncate">
+                      {c.name}
+                    </div>
                     <div className="text-[10px] sm:text-[11px] text-muted-foreground">
                       {count} product{count === 1 ? '' : 's'}
                     </div>
@@ -169,7 +124,11 @@ export default function HomePage() {
       {/* ============ TOP PICKS ============ */}
       {topPicks.length > 0 && (
         <section className="container mx-auto px-3 sm:px-4 py-8 sm:py-10 md:py-14">
-          <SectionHeading title="Top picks" subtitle="Our most-trusted tools on site right now" href="/shop" />
+          <SectionHeading
+            title="Top picks"
+            subtitle="Our most-trusted tools on site right now"
+            href="/shop"
+          />
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2.5 sm:gap-3 md:gap-5">
             {topPicks.map((p) => (
               <WebsiteProductCard key={p.id} product={p} />
@@ -181,7 +140,10 @@ export default function HomePage() {
       {/* ============ TRADE BANNER ============ */}
       <section className="container mx-auto px-3 sm:px-4 pb-8 sm:pb-10 md:pb-14">
         <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-accent/90 to-accent text-accent-foreground p-5 sm:p-6 md:p-10">
-          <div className="absolute -right-10 -bottom-16 h-56 w-56 rounded-full bg-white/10" aria-hidden />
+          <div
+            className="absolute -right-10 -bottom-16 h-56 w-56 rounded-full bg-white/10"
+            aria-hidden
+          />
           <div className="relative flex flex-col md:flex-row md:items-center justify-between gap-5 md:gap-6">
             <div className="space-y-2 max-w-xl">
               <div className="inline-block rounded-full bg-white/20 px-3 py-0.5 text-[10px] sm:text-[11px] font-semibold uppercase tracking-wider">
@@ -211,7 +173,11 @@ export default function HomePage() {
 
       {/* ============ NEW ARRIVALS ============ */}
       <section className="container mx-auto px-3 sm:px-4 pb-12 sm:pb-14 md:pb-20">
-        <SectionHeading title="New arrivals" subtitle="Fresh stock just landed" href="/shop" />
+        <SectionHeading
+          title="New arrivals"
+          subtitle="Fresh stock just landed"
+          href="/shop"
+        />
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2.5 sm:gap-3 md:gap-5">
           {newArrivals.map((p) => (
             <WebsiteProductCard key={p.id} product={p} />
@@ -222,22 +188,25 @@ export default function HomePage() {
   );
 }
 
-function Stat({ value, label }: { value: string; label: string }) {
-  return (
-    <div>
-      <div className="text-xl sm:text-2xl md:text-3xl font-extrabold tabular-nums">{value}</div>
-      <div className="text-[9px] sm:text-[10px] md:text-[11px] uppercase tracking-wider text-primary-foreground/65 mt-0.5">
-        {label}
-      </div>
-    </div>
-  );
-}
+/* ------------------------------------------------------------------ */
+/* Helpers                                                             */
+/* ------------------------------------------------------------------ */
 
-function SectionHeading({ title, subtitle, href }: { title: string; subtitle: string; href: string }) {
+function SectionHeading({
+  title,
+  subtitle,
+  href,
+}: {
+  title: string;
+  subtitle: string;
+  href: string;
+}) {
   return (
     <div className="flex items-end justify-between gap-3 sm:gap-4 mb-4 sm:mb-6 md:mb-8">
       <div className="min-w-0">
-        <h2 className="text-lg sm:text-xl md:text-2xl font-extrabold tracking-tight">{title}</h2>
+        <h2 className="text-lg sm:text-xl md:text-2xl font-extrabold tracking-tight">
+          {title}
+        </h2>
         <p className="text-[11px] sm:text-xs md:text-sm text-muted-foreground mt-0.5 sm:mt-1 line-clamp-2">
           {subtitle}
         </p>
