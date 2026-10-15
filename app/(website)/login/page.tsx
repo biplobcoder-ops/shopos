@@ -25,8 +25,11 @@ function LoginForm() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
+  // If already logged in → redirect immediately
   useEffect(() => {
-    if (isAuthenticated) router.replace(redirect);
+    if (isAuthenticated) {
+      router.replace(redirect);
+    }
   }, [isAuthenticated, redirect, router]);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -35,6 +38,7 @@ function LoginForm() {
     setLoading(true);
 
     const result = await login(email, password);
+
     if (!result.ok) {
       setError(result.error || 'Login failed');
       setLoading(false);
@@ -42,7 +46,8 @@ function LoginForm() {
     }
 
     toast.success('Welcome back!');
-    router.push(redirect);
+    // Navigation happens via useEffect (isAuthenticated becomes true)
+    // So we don't need router.push here
   };
 
   return (
@@ -162,6 +167,14 @@ function LoginForm() {
               Create an account
             </Link>
           </Button>
+
+          {/* Staff sign in link */}
+          <p className="text-center text-xs text-muted-foreground mt-4">
+            Are you staff?{' '}
+            <Link href="/admin/login" className="text-primary hover:underline font-medium">
+              Staff sign in
+            </Link>
+          </p>
         </div>
       </div>
     </div>
