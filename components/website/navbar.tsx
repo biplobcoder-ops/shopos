@@ -108,13 +108,13 @@ export function WebsiteNavbar() {
             <Menu className="h-5 w-5" />
           </Button>
 
-          {/* Site name only — no logo, no tagline */}
+          {/* Site name — BOLD, no logo, no tagline */}
           <Link
             href="/"
             className="shrink-0"
             aria-label={`${businessInfo.name} home`}
           >
-            <span className="text-lg md:text-xl font-extrabold tracking-tight text-primary">
+            <span className="text-xl md:text-2xl font-black tracking-tight text-primary">
               Southern Cross
             </span>
           </Link>
@@ -236,9 +236,9 @@ export function WebsiteNavbar() {
       {/* Mobile / tablet menu */}
       <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
         <SheetContent side="left" className="p-0 w-[88vw] max-w-[320px] flex flex-col">
-          {/* Site name only — no logo, no tagline */}
+          {/* Site name — BOLD, no logo, no tagline */}
           <div className="flex items-center h-16 border-b border-border px-4">
-            <span className="text-base font-extrabold text-primary">
+            <span className="text-lg font-black text-primary">
               Southern Cross
             </span>
           </div>
