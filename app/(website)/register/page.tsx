@@ -39,8 +39,11 @@ function RegisterForm() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
+  // If already logged in → redirect immediately
   useEffect(() => {
-    if (isAuthenticated) router.replace(redirect);
+    if (isAuthenticated) {
+      router.replace(redirect);
+    }
   }, [isAuthenticated, redirect, router]);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -65,8 +68,8 @@ function RegisterForm() {
       return;
     }
 
-    toast.success('Account created!');
-    router.push(redirect);
+    toast.success('Account created! Welcome aboard 🎉');
+    // Navigation happens via useEffect (isAuthenticated becomes true)
   };
 
   return (
@@ -258,6 +261,14 @@ function RegisterForm() {
               Sign in to your account
             </Link>
           </Button>
+
+          {/* Staff sign in link */}
+          <p className="text-center text-xs text-muted-foreground mt-4">
+            Are you staff?{' '}
+            <Link href="/admin/login" className="text-primary hover:underline font-medium">
+              Staff sign in
+            </Link>
+          </p>
         </div>
       </div>
     </div>
