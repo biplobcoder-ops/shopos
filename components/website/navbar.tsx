@@ -10,7 +10,6 @@ import {
   ShoppingCart,
   Menu,
   X,
-  Wrench,
   Truck,
   Store,
   Phone,
@@ -75,7 +74,10 @@ export function WebsiteNavbar() {
             <Link href="/help" className="hover:text-accent transition-colors">
               Delivery &amp; Returns
             </Link>
-            <Link href="/contact" className="inline-flex items-center gap-1.5 hover:text-accent transition-colors">
+            <Link
+              href="/contact"
+              className="inline-flex items-center gap-1.5 hover:text-accent transition-colors"
+            >
               <Store className="h-3.5 w-3.5" />
               Store Locator
             </Link>
@@ -106,22 +108,15 @@ export function WebsiteNavbar() {
             <Menu className="h-5 w-5" />
           </Button>
 
+          {/* Site name only — no logo, no tagline */}
           <Link
             href="/"
-            className="flex items-center gap-2.5 shrink-0"
+            className="shrink-0"
             aria-label={`${businessInfo.name} home`}
           >
-            <div className="h-10 w-10 rounded-lg bg-primary text-primary-foreground flex items-center justify-center shadow-sm">
-              <Wrench className="h-5 w-5" />
-            </div>
-            <div className="leading-none">
-              <div className="text-[15px] md:text-base font-extrabold tracking-tight text-primary">
-                Southern Cross
-              </div>
-              <div className="text-[9px] md:text-[10px] font-semibold uppercase tracking-[0.18em] text-accent mt-1">
-                Tools &amp; Hardware
-              </div>
-            </div>
+            <span className="text-lg md:text-xl font-extrabold tracking-tight text-primary">
+              Southern Cross
+            </span>
           </Link>
 
           <form onSubmit={submitSearch} className="hidden md:flex flex-1 max-w-2xl mx-auto">
@@ -194,7 +189,7 @@ export function WebsiteNavbar() {
               <button
                 type="button"
                 onClick={() => setMobileSearch(false)}
-                className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 rounded-md hover:bg-accent"
+                className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 rounded-md hover:bg-accent/10"
                 aria-label="Close search"
               >
                 <X className="h-4 w-4" />
@@ -241,16 +236,11 @@ export function WebsiteNavbar() {
       {/* Mobile / tablet menu */}
       <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
         <SheetContent side="left" className="p-0 w-[88vw] max-w-[320px] flex flex-col">
-          <div className="flex items-center gap-2.5 h-16 border-b border-border px-4">
-            <div className="h-9 w-9 rounded-lg bg-primary text-primary-foreground flex items-center justify-center">
-              <Wrench className="h-4 w-4" />
-            </div>
-            <div className="leading-none">
-              <div className="text-sm font-extrabold text-primary">Southern Cross</div>
-              <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-accent mt-1">
-                Tools &amp; Hardware
-              </div>
-            </div>
+          {/* Site name only — no logo, no tagline */}
+          <div className="flex items-center h-16 border-b border-border px-4">
+            <span className="text-base font-extrabold text-primary">
+              Southern Cross
+            </span>
           </div>
 
           <div className="flex-1 overflow-y-auto">
