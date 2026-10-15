@@ -24,19 +24,19 @@ import { STORE_HOURS, SUPPORT_PHONE_DISPLAY } from '@/lib/constants';
 
 const SHOP_LINKS = [
   { href: '/shop', label: 'All Products' },
+  { href: '/shop?sort=newest', label: 'New Arrivals' },
+  { href: '/shop?deals=true', label: 'Deals & Offers' },
   { href: '/shop?category=Power%20Tools', label: 'Power Tools' },
   { href: '/shop?category=Hand%20Tools', label: 'Hand Tools' },
-  { href: '/shop?category=Accessories', label: 'Accessories' },
   { href: '/shop?category=Safety', label: 'Safety Gear' },
-  { href: '/shop?category=Measuring', label: 'Measuring' },
 ];
 
 const HELP_LINKS = [
   { href: '/help', label: 'Delivery & Click & Collect' },
   { href: '/help#returns', label: 'Returns & Refunds' },
   { href: '/help#warranty', label: 'Warranty' },
-  { href: '/register', label: 'Trade Account' },
   { href: '/my-orders', label: 'Track My Order' },
+  { href: '/contact', label: 'Contact Support' },
 ];
 
 const COMPANY_LINKS = [
@@ -62,7 +62,7 @@ export function WebsiteFooter() {
       toast.error('Please enter a valid email address');
       return;
     }
-    toast.success('Thanks — you are subscribed to our trade specials');
+    toast.success('Thanks — you are subscribed to our specials');
     setEmail('');
   };
 
@@ -73,16 +73,16 @@ export function WebsiteFooter() {
         <div className="container mx-auto py-8 flex flex-col md:flex-row md:items-center justify-between gap-5">
           <div className="space-y-1">
             <h3 className="text-base md:text-lg font-bold text-primary-foreground">
-              Weekly tool specials, straight to your inbox
+              Get 10% off your first order
             </h3>
             <p className="text-xs md:text-sm text-primary-foreground/60">
-              Power tool deals, new arrivals and job-site tips. Unsubscribe any time.
+              Tool deals, new arrivals and job-site tips. Unsubscribe any time.
             </p>
           </div>
           <form onSubmit={subscribe} className="flex gap-2 w-full md:w-auto md:min-w-[380px]">
             <Input
               type="email"
-              placeholder="you@company.com.au"
+              placeholder="you@example.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="h-11 flex-1 bg-white/5 border-white/15 text-primary-foreground placeholder:text-primary-foreground/40"
@@ -153,7 +153,7 @@ export function WebsiteFooter() {
               <div className="font-semibold text-primary-foreground">Call us</div>
               <div className="text-primary-foreground/60">{businessInfo.phone}</div>
               <div className="text-primary-foreground/60 text-xs mt-0.5">
-                Trade enquiries: {SUPPORT_PHONE_DISPLAY}
+                Support: {SUPPORT_PHONE_DISPLAY}
               </div>
             </div>
           </div>
