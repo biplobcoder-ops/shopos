@@ -17,6 +17,13 @@ const config: Config = {
       screens: { '2xl': '1400px' },
     },
     extend: {
+      /* ============================================
+         Custom breakpoints
+         xs: extra small phones (< 400px)
+         ============================================ */
+      screens: {
+        xs: '400px',
+      },
       fontFamily: {
         sans: [
           'ui-sans-serif',
