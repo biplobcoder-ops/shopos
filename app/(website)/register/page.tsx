@@ -40,9 +40,7 @@ function RegisterForm() {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    if (isAuthenticated) {
-      router.replace(redirect);
-    }
+    if (isAuthenticated) router.replace(redirect);
   }, [isAuthenticated, redirect, router]);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -74,7 +72,6 @@ function RegisterForm() {
   return (
     <div className="container mx-auto px-3 sm:px-4 py-8 sm:py-12 md:py-16">
       <div className="max-w-md mx-auto">
-        {/* Header */}
         <div className="text-center mb-6 sm:mb-8">
           <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-primary">
             Create your account
@@ -84,17 +81,14 @@ function RegisterForm() {
           </p>
         </div>
 
-        {/* Form card */}
         <div className="rounded-2xl border bg-card p-5 sm:p-6 md:p-8 shadow-sm">
           <form onSubmit={handleSubmit} className="space-y-4">
-            {/* Error */}
             {error && (
               <div className="rounded-lg border border-destructive/30 bg-destructive/10 px-3 py-2 text-sm text-destructive">
                 {error}
               </div>
             )}
 
-            {/* Full name */}
             <div className="space-y-1.5">
               <Label htmlFor="name" className="text-sm font-medium">
                 Full name
@@ -114,7 +108,6 @@ function RegisterForm() {
               </div>
             </div>
 
-            {/* Email */}
             <div className="space-y-1.5">
               <Label htmlFor="email" className="text-sm font-medium">
                 Email address
@@ -134,7 +127,6 @@ function RegisterForm() {
               </div>
             </div>
 
-            {/* Phone (optional) */}
             <div className="space-y-1.5">
               <Label htmlFor="phone" className="text-sm font-medium">
                 Phone <span className="text-muted-foreground">(optional)</span>
@@ -144,7 +136,6 @@ function RegisterForm() {
                 <Input
                   id="phone"
                   type="tel"
-                  autoComplete="tel"
                   placeholder="+61 4XX XXX XXX"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
@@ -153,7 +144,6 @@ function RegisterForm() {
               </div>
             </div>
 
-            {/* Password */}
             <div className="space-y-1.5">
               <Label htmlFor="password" className="text-sm font-medium">
                 Password
@@ -185,7 +175,6 @@ function RegisterForm() {
               </div>
             </div>
 
-            {/* Confirm password */}
             <div className="space-y-1.5">
               <Label htmlFor="confirm" className="text-sm font-medium">
                 Confirm password
@@ -208,7 +197,6 @@ function RegisterForm() {
               </div>
             </div>
 
-            {/* Terms */}
             <div className="flex items-start gap-2 pt-1">
               <input
                 id="agree"
@@ -217,7 +205,10 @@ function RegisterForm() {
                 onChange={(e) => setAgree(e.target.checked)}
                 className="h-4 w-4 mt-0.5 rounded border-border text-primary focus:ring-primary"
               />
-              <Label htmlFor="agree" className="text-xs text-muted-foreground cursor-pointer leading-relaxed">
+              <Label
+                htmlFor="agree"
+                className="text-xs text-muted-foreground cursor-pointer leading-relaxed"
+              >
                 I agree to the{' '}
                 <Link href="/help#terms" className="text-primary hover:underline">
                   Terms of Sale
@@ -229,7 +220,6 @@ function RegisterForm() {
               </Label>
             </div>
 
-            {/* Submit */}
             <Button
               type="submit"
               size="lg"
@@ -250,7 +240,6 @@ function RegisterForm() {
             </Button>
           </form>
 
-          {/* Divider */}
           <div className="relative my-6">
             <div className="absolute inset-0 flex items-center">
               <div className="w-full border-t border-border" />
@@ -260,33 +249,15 @@ function RegisterForm() {
             </div>
           </div>
 
-          {/* Login CTA */}
-          <Button
-            asChild
-            variant="outline"
-            size="lg"
-            className="w-full h-11"
-          >
-            <Link href={`/login${redirect !== '/' ? `?redirect=${encodeURIComponent(redirect)}` : ''}`}>
+          <Button asChild variant="outline" size="lg" className="w-full h-11">
+            <Link
+              href={`/login${
+                redirect !== '/' ? `?redirect=${encodeURIComponent(redirect)}` : ''
+              }`}
+            >
               Sign in to your account
             </Link>
           </Button>
-        </div>
-
-        {/* Trust badges */}
-        <div className="flex items-center justify-center gap-4 mt-6 text-xs text-muted-foreground">
-          <span className="flex items-center gap-1">
-            <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" />
-            Secure
-          </span>
-          <span className="flex items-center gap-1">
-            <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" />
-            No spam
-          </span>
-          <span className="flex items-center gap-1">
-            <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" />
-            Free returns
-          </span>
         </div>
       </div>
     </div>
