@@ -9,6 +9,7 @@ import {
   ChevronLeft,
   ChevronRight,
   BadgeCheck,
+  Flame,
 } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
@@ -22,19 +23,20 @@ import { FREE_DELIVERY_THRESHOLD } from '@/lib/constants';
 interface Slide {
   badge: string;
   title: string;
-  titleLine2?: string; // optional second line break
+  titleLine2?: string;
   subtitle: string;
   image: string;
   imageAlt: string;
   primaryCta: { label: string; href: string };
   secondaryCta?: { label: string; href: string };
   stats?: { value: string; label: string }[];
+  dealBadge?: boolean; // ← new: show 🔥 icon in badge
 }
 
 const SLIDES: Slide[] = [
   // -------- Slide 1: Main storefront --------
   {
-    badge: 'Proudly serving Australian builders & trades',
+    badge: "Australia's trusted tool shop",
     title: 'Tools built for',
     titleLine2: 'the job site.',
     subtitle:
@@ -43,7 +45,7 @@ const SLIDES: Slide[] = [
       'https://images.unsplash.com/photo-1504148455328-c376907d081c?w=1200&q=80&auto=format&fit=crop',
     imageAlt: 'Professional power drill on a workbench',
     primaryCta: { label: 'Shop all tools', href: '/shop' },
-    secondaryCta: { label: 'Open a trade account', href: '/register' },
+    secondaryCta: { label: 'Browse new arrivals', href: '/shop?sort=newest' },
     stats: [
       { value: '55+', label: 'Products' },
       { value: '6', label: 'Brands' },
@@ -57,7 +59,7 @@ const SLIDES: Slide[] = [
     title: 'Latest gear for',
     titleLine2: 'every job.',
     subtitle:
-      'Fresh stock from Bosch, Makita, DeWalt and Stanley. Trade-quality tools ready to ship Australia-wide.',
+      'Fresh stock from Bosch, Makita, DeWalt and Stanley. Quality tools ready to ship Australia-wide.',
     image:
       'https://images.unsplash.com/photo-1572981779307-38b8cabb2407?w=1200&q=80&auto=format&fit=crop',
     imageAlt: 'Power tools arranged on a workbench',
@@ -65,17 +67,18 @@ const SLIDES: Slide[] = [
     secondaryCta: { label: 'Shop by category', href: '/shop' },
   },
 
-  // -------- Slide 3: Trade account --------
+  // -------- Slide 3: Deal — 20% off Bosch --------
   {
-    badge: 'For builders & trades',
-    title: 'Running a crew?',
-    titleLine2: 'Get a trade account.',
-    subtitle: `Account terms, bulk pricing and a dedicated contact for your site orders. Free delivery on orders over $${FREE_DELIVERY_THRESHOLD}.`,
+    badge: 'Limited time offer — ends Sunday',
+    title: '20% off Bosch',
+    titleLine2: 'power tools.',
+    subtitle: `Save on top Bosch drills, grinders and saws. Free delivery on orders over $${FREE_DELIVERY_THRESHOLD}.`,
     image:
       'https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=1200&q=80&auto=format&fit=crop',
-    imageAlt: 'Construction professional using tools on site',
-    primaryCta: { label: 'Apply for trade account', href: '/register' },
-    secondaryCta: { label: 'Talk to our team', href: '/contact' },
+    imageAlt: 'Bosch power tools on sale',
+    primaryCta: { label: 'Shop Bosch deals', href: '/shop?q=Bosch' },
+    secondaryCta: { label: 'View all deals', href: '/shop' },
+    dealBadge: true,
   },
 ];
 
@@ -93,9 +96,12 @@ export function HeroSlider() {
 
   const total = SLIDES.length;
 
-  const goTo = useCallback((i: number) => {
-    setIndex(((i % total) + total) % total);
-  }, [total]);
+  const goTo = useCallback(
+    (i: number) => {
+      setIndex(((i % total) + total) % total);
+    },
+    [total]
+  );
 
   const next = useCallback(() => goTo(index + 1), [goTo, index]);
   const prev = useCallback(() => goTo(index - 1), [goTo, index]);
@@ -150,7 +156,7 @@ export function HeroSlider() {
       aria-roledescription="carousel"
       aria-label="Store highlights"
     >
-      {/* Slides — stacked, only active one visible */}
+      {/* Slides */}
       <div className="relative">
         {SLIDES.map((slide, i) => (
           <div
@@ -168,7 +174,7 @@ export function HeroSlider() {
         ))}
       </div>
 
-      {/* ---------- Prev / Next arrows ---------- */}
+      {/* Prev / Next arrows */}
       <button
         type="button"
         onClick={prev}
@@ -186,7 +192,7 @@ export function HeroSlider() {
         <ChevronRight className="h-5 w-5" />
       </button>
 
-      {/* ---------- Dot indicators ---------- */}
+      {/* Dot indicators */}
       <div className="absolute bottom-4 sm:bottom-5 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2">
         {SLIDES.map((_, i) => (
           <button
@@ -218,7 +224,11 @@ function SlideContent({ slide }: { slide: Slide }) {
       {/* Left — text */}
       <div className="space-y-4 sm:space-y-5 md:space-y-6 order-2 lg:order-1">
         <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-[11px] sm:text-xs font-medium backdrop-blur max-w-full">
-          <BadgeCheck className="h-3.5 w-3.5 text-accent shrink-0" />
+          {slide.dealBadge ? (
+            <Flame className="h-3.5 w-3.5 text-accent shrink-0" />
+          ) : (
+            <BadgeCheck className="h-3.5 w-3.5 text-accent shrink-0" />
+          )}
           <span className="truncate">{slide.badge}</span>
         </span>
 
@@ -226,8 +236,7 @@ function SlideContent({ slide }: { slide: Slide }) {
           {slide.title}
           {slide.titleLine2 && (
             <>
-              <br className="hidden sm:block" />{' '}
-              {slide.titleLine2}
+              <br className="hidden sm:block" /> {slide.titleLine2}
             </>
           )}
         </h1>
