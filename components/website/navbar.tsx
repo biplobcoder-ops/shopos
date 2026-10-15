@@ -17,13 +17,27 @@ import {
   ChevronRight,
   Flame,
   Sparkles,
+  LogIn,
+  UserPlus,
+  LogOut,
+  Package,
+  UserCircle,
 } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Sheet, SheetContent } from '@/components/ui/sheet';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import { useWebCart } from '@/lib/store/web-cart-store';
 import { useSettingsStore } from '@/lib/store/settings-store';
+import { useCustomerAuth } from '@/lib/store/customer-auth-store';
 import { FREE_DELIVERY_THRESHOLD, SUPPORT_PHONE_DISPLAY } from '@/lib/constants';
 
 const CATEGORIES = [
@@ -48,6 +62,9 @@ export function WebsiteNavbar() {
   const count = cart.count();
   const { businessInfo } = useSettingsStore();
 
+  // 👇 Customer auth
+  const { user, isAuthenticated, logout } = useCustomerAuth();
+
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileSearch, setMobileSearch] = useState(false);
   const [query, setQuery] = useState('');
@@ -60,6 +77,22 @@ export function WebsiteNavbar() {
     setMobileSearch(false);
     setQuery('');
   };
+
+  const handleLogout = () => {
+    logout();
+    setMobileOpen(false);
+    router.push('/');
+  };
+
+  // Get initials for avatar
+  const initials = user?.name
+    ? user.name
+        .split(' ')
+        .map((n) => n[0])
+        .join('')
+        .slice(0, 2)
+        .toUpperCase()
+    : 'U';
 
   return (
     <>
@@ -149,12 +182,71 @@ export function WebsiteNavbar() {
               <Search className="h-5 w-5" />
             </Button>
 
-            <Button asChild variant="ghost" size="sm" className="hidden lg:inline-flex h-10 gap-2">
-              <Link href="/my-orders">
-                <User className="h-4 w-4" />
-                My Orders
-              </Link>
-            </Button>
+            {/* ====== AUTH SECTION (Desktop) ====== */}
+            {isAuthenticated && user ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="hidden lg:inline-flex h-10 gap-2 px-2"
+                  >
+                    <span className="h-7 w-7 rounded-full bg-primary text-primary-foreground text-xs font-bold flex items-center justify-center">
+                      {initials}
+                    </span>
+                    <span className="max-w-[100px] truncate text-sm font-medium">
+                      {user.name.split(' ')[0]}
+                    </span>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-56">
+                  <DropdownMenuLabel className="font-normal">
+                    <div className="flex flex-col space-y-1">
+                      <p className="text-sm font-semibold truncate">{user.name}</p>
+                      <p className="text-xs text-muted-foreground truncate">
+                        {user.email}
+                      </p>
+                    </div>
+                  </DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem asChild>
+                    <Link href="/my-orders" className="cursor-pointer">
+                      <Package className="mr-2 h-4 w-4" />
+                      My Orders
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link href="/account" className="cursor-pointer">
+                      <UserCircle className="mr-2 h-4 w-4" />
+                      My Profile
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem
+                    onClick={handleLogout}
+                    className="cursor-pointer text-red-600 focus:text-red-600"
+                  >
+                    <LogOut className="mr-2 h-4 w-4" />
+                    Logout
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <div className="hidden lg:flex items-center gap-1">
+                <Button asChild variant="ghost" size="sm" className="h-10 gap-2">
+                  <Link href="/login">
+                    <LogIn className="h-4 w-4" />
+                    Login
+                  </Link>
+                </Button>
+                <Button asChild size="sm" className="h-10 gap-2">
+                  <Link href="/register">
+                    <UserPlus className="h-4 w-4" />
+                    Register
+                  </Link>
+                </Button>
+              </div>
+            )}
 
             <Button
               variant="ghost"
@@ -247,6 +339,52 @@ export function WebsiteNavbar() {
           </div>
 
           <div className="flex-1 overflow-y-auto">
+            {/* ====== MOBILE AUTH HEADER ====== */}
+            {isAuthenticated && user ? (
+              <div className="border-b border-border p-4">
+                <div className="flex items-center gap-3">
+                  <span className="h-10 w-10 rounded-full bg-primary text-primary-foreground text-sm font-bold flex items-center justify-center shrink-0">
+                    {initials}
+                  </span>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-sm font-semibold truncate">{user.name}</p>
+                    <p className="text-xs text-muted-foreground truncate">
+                      {user.email}
+                    </p>
+                  </div>
+                </div>
+                <div className="grid grid-cols-2 gap-2 mt-3">
+                  <Button asChild variant="outline" size="sm" className="h-9">
+                    <Link href="/my-orders" onClick={() => setMobileOpen(false)}>
+                      <Package className="h-3.5 w-3.5 mr-1.5" />
+                      Orders
+                    </Link>
+                  </Button>
+                  <Button asChild variant="outline" size="sm" className="h-9">
+                    <Link href="/account" onClick={() => setMobileOpen(false)}>
+                      <UserCircle className="h-3.5 w-3.5 mr-1.5" />
+                      Profile
+                    </Link>
+                  </Button>
+                </div>
+              </div>
+            ) : (
+              <div className="border-b border-border p-4 grid grid-cols-2 gap-2">
+                <Button asChild variant="outline" size="sm" className="h-10">
+                  <Link href="/login" onClick={() => setMobileOpen(false)}>
+                    <LogIn className="h-4 w-4 mr-1.5" />
+                    Login
+                  </Link>
+                </Button>
+                <Button asChild size="sm" className="h-10">
+                  <Link href="/register" onClick={() => setMobileOpen(false)}>
+                    <UserPlus className="h-4 w-4 mr-1.5" />
+                    Register
+                  </Link>
+                </Button>
+              </div>
+            )}
+
             <div className="px-4 pt-4 pb-2 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
               Shop by category
             </div>
@@ -295,13 +433,27 @@ export function WebsiteNavbar() {
               <Phone className="h-4 w-4 text-accent" />
               {SUPPORT_PHONE_DISPLAY}
             </a>
+
+            {/* Logout button (mobile) if logged in */}
+            {isAuthenticated && (
+              <Button
+                variant="destructive"
+                className="w-full h-10"
+                onClick={handleLogout}
+              >
+                <LogOut className="h-4 w-4 mr-2" />
+                Logout
+              </Button>
+            )}
+
+            {/* Staff sign in */}
             <Button
               asChild
               variant="outline"
               className="w-full h-10"
               onClick={() => setMobileOpen(false)}
             >
-              <Link href="/login">Staff sign in</Link>
+              <Link href="/admin/login">Staff sign in</Link>
             </Button>
           </div>
         </SheetContent>
