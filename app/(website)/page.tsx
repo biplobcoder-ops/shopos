@@ -33,41 +33,50 @@ export default function HomePage() {
 
   return (
     <div className="flex flex-col">
-      {/* Hero */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-brand-950 via-brand-700 to-brand-600 text-white">
-        <div className="container mx-auto grid grid-cols-1 lg:grid-cols-2 items-center gap-8 lg:gap-12 py-10 md:py-16 lg:py-20">
-          <div className="space-y-5 md:space-y-6">
-            <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs font-medium backdrop-blur">
-              <BadgeCheck className="h-3.5 w-3.5 text-safety-300" />
-              Proudly serving Australian builders &amp; trades
+      {/* ============ HERO ============ */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-primary/80 text-primary-foreground">
+        <div className="container mx-auto px-3 sm:px-4 grid grid-cols-1 lg:grid-cols-2 items-center gap-6 sm:gap-8 lg:gap-12 py-8 sm:py-10 md:py-16 lg:py-20">
+          <div className="space-y-4 sm:space-y-5 md:space-y-6">
+            <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-[11px] sm:text-xs font-medium backdrop-blur">
+              <BadgeCheck className="h-3.5 w-3.5 text-accent shrink-0" />
+              <span className="truncate">Proudly serving Australian builders &amp; trades</span>
             </span>
-            <h1 className="text-3xl leading-[1.1] sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight">
+            <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.1]">
               Tools built for<br className="hidden sm:block" /> the job site.
             </h1>
-            <p className="max-w-lg text-sm md:text-base text-white/75 leading-relaxed">
+            <p className="max-w-lg text-sm md:text-base text-primary-foreground/75 leading-relaxed">
               Power tools, hand tools, safety gear and measuring equipment from trusted brands —
               priced in AUD including GST, with fast delivery across Australia.
             </p>
-            <div className="flex flex-col sm:flex-row gap-3 pt-1">
-              <Button asChild size="lg" className="h-12 bg-safety-500 hover:bg-safety-600 text-white font-semibold">
+            <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-3 pt-1">
+              <Button
+                asChild
+                size="lg"
+                className="h-11 sm:h-12 w-full sm:w-auto bg-accent text-accent-foreground hover:bg-accent/90 font-semibold"
+              >
                 <Link href="/shop">
                   Shop all tools
                   <ArrowRight className="h-4 w-4 ml-2" />
                 </Link>
               </Button>
-              <Button asChild size="lg" variant="outline" className="h-12 bg-transparent border-white/30 text-white hover:bg-white/10 hover:text-white">
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="h-11 sm:h-12 w-full sm:w-auto bg-transparent border-white/30 text-primary-foreground hover:bg-white/10 hover:text-primary-foreground"
+              >
                 <Link href="/register">Open a trade account</Link>
               </Button>
             </div>
-            <div className="grid grid-cols-3 gap-4 pt-4 max-w-md border-t border-white/15">
+            <div className="grid grid-cols-3 gap-3 sm:gap-4 pt-4 max-w-md border-t border-white/15">
               <Stat value={`${active.length}+`} label="Products" />
               <Stat value={`${demoBrands.length - 1}`} label="Brands" />
               <Stat value={`${demoCategories.length}`} label="Categories" />
             </div>
           </div>
 
-          <div className="relative">
-            <div className="absolute -inset-4 rounded-3xl bg-safety-500/10 blur-2xl" aria-hidden />
+          <div className="relative order-first lg:order-last">
+            <div className="absolute -inset-4 rounded-3xl bg-accent/10 blur-2xl" aria-hidden />
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={HERO_IMAGE}
@@ -78,34 +87,38 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Service band */}
+      {/* ============ SERVICE BAND ============ */}
       <section className="border-b border-border bg-background">
-        <div className="container mx-auto py-5 md:py-6 grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+        <div className="container mx-auto px-3 sm:px-4 py-4 sm:py-5 md:py-6 grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
           {services.map((s) => (
-            <div key={s.title} className="flex items-center gap-3">
-              <div className="h-10 w-10 shrink-0 rounded-lg bg-brand-50 text-brand-600 dark:bg-brand-900 dark:text-brand-300 flex items-center justify-center">
-                <s.icon className="h-5 w-5" />
+            <div key={s.title} className="flex items-center gap-2.5 sm:gap-3">
+              <div className="h-9 w-9 sm:h-10 sm:w-10 shrink-0 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
+                <s.icon className="h-4 w-4 sm:h-5 sm:w-5" />
               </div>
               <div className="min-w-0">
-                <div className="text-sm font-semibold leading-tight">{s.title}</div>
-                <div className="text-[11px] md:text-xs text-muted-foreground leading-snug mt-0.5">{s.sub}</div>
+                <div className="text-[12px] sm:text-sm font-semibold leading-tight truncate">
+                  {s.title}
+                </div>
+                <div className="text-[10px] sm:text-[11px] md:text-xs text-muted-foreground leading-snug mt-0.5 line-clamp-2">
+                  {s.sub}
+                </div>
               </div>
             </div>
           ))}
         </div>
       </section>
 
-      {/* Categories */}
-      <section className="container mx-auto py-10 md:py-14">
+      {/* ============ CATEGORIES ============ */}
+      <section className="container mx-auto px-3 sm:px-4 py-8 sm:py-10 md:py-14">
         <SectionHeading title="Shop by category" subtitle="Find the right tool for the job" href="/shop" />
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 md:gap-4">
+        <div className="grid grid-cols-2 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2.5 sm:gap-3 md:gap-4">
           {demoCategories.map((c) => {
             const count = active.filter((p) => p.category === c.name).length;
             return (
               <Link
                 key={c.id}
                 href={`/shop?category=${encodeURIComponent(c.name)}`}
-                className="group relative overflow-hidden rounded-xl border bg-card transition-all hover:-translate-y-0.5 hover:shadow-lg"
+                className="group relative overflow-hidden rounded-xl border bg-card transition-all hover:-translate-y-0.5 hover:shadow-lg hover:border-primary/40"
               >
                 <div className="aspect-[4/3] bg-muted overflow-hidden">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -116,14 +129,14 @@ export default function HomePage() {
                     className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
                   />
                 </div>
-                <div className="flex items-center justify-between gap-2 p-3 md:p-4">
+                <div className="flex items-center justify-between gap-2 p-2.5 sm:p-3 md:p-4">
                   <div className="min-w-0">
-                    <div className="text-sm font-semibold truncate">{c.name}</div>
-                    <div className="text-[11px] text-muted-foreground">
+                    <div className="text-[12px] sm:text-sm font-semibold truncate">{c.name}</div>
+                    <div className="text-[10px] sm:text-[11px] text-muted-foreground">
                       {count} product{count === 1 ? '' : 's'}
                     </div>
                   </div>
-                  <ArrowRight className="h-4 w-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:text-brand-600" />
+                  <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:text-primary" />
                 </div>
               </Link>
             );
@@ -131,20 +144,20 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Brand strip */}
+      {/* ============ BRAND STRIP ============ */}
       <section className="border-y border-border bg-muted/40">
-        <div className="container mx-auto py-6">
-          <div className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground mb-3">
+        <div className="container mx-auto px-3 sm:px-4 py-5 sm:py-6">
+          <div className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-wider text-muted-foreground mb-2.5 sm:mb-3">
             Shop by brand
           </div>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-1.5 sm:gap-2">
             {demoBrands
               .filter((b) => b.name !== 'Generic')
               .map((b) => (
                 <Link
                   key={b.id}
                   href={`/shop?q=${encodeURIComponent(b.name)}`}
-                  className="rounded-full border bg-background px-4 py-2 text-sm font-medium hover:border-brand-600 hover:text-brand-600 transition-colors"
+                  className="rounded-full border bg-background px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium hover:border-primary hover:text-primary transition-colors"
                 >
                   {b.name}
                 </Link>
@@ -153,11 +166,11 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Top picks */}
+      {/* ============ TOP PICKS ============ */}
       {topPicks.length > 0 && (
-        <section className="container mx-auto py-10 md:py-14">
+        <section className="container mx-auto px-3 sm:px-4 py-8 sm:py-10 md:py-14">
           <SectionHeading title="Top picks" subtitle="Our most-trusted tools on site right now" href="/shop" />
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-5">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2.5 sm:gap-3 md:gap-5">
             {topPicks.map((p) => (
               <WebsiteProductCard key={p.id} product={p} />
             ))}
@@ -165,24 +178,28 @@ export default function HomePage() {
         </section>
       )}
 
-      {/* Trade banner */}
-      <section className="container mx-auto pb-10 md:pb-14">
-        <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-safety-600 to-safety-500 text-white p-6 md:p-10">
+      {/* ============ TRADE BANNER ============ */}
+      <section className="container mx-auto px-3 sm:px-4 pb-8 sm:pb-10 md:pb-14">
+        <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-accent/90 to-accent text-accent-foreground p-5 sm:p-6 md:p-10">
           <div className="absolute -right-10 -bottom-16 h-56 w-56 rounded-full bg-white/10" aria-hidden />
-          <div className="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div className="relative flex flex-col md:flex-row md:items-center justify-between gap-5 md:gap-6">
             <div className="space-y-2 max-w-xl">
-              <div className="inline-block rounded-full bg-white/20 px-3 py-0.5 text-[11px] font-semibold uppercase tracking-wider">
+              <div className="inline-block rounded-full bg-white/20 px-3 py-0.5 text-[10px] sm:text-[11px] font-semibold uppercase tracking-wider">
                 For builders &amp; trades
               </div>
-              <h2 className="text-2xl md:text-3xl font-extrabold leading-tight">
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-extrabold leading-tight">
                 Running a crew? Get a trade account.
               </h2>
-              <p className="text-sm md:text-base text-white/85">
+              <p className="text-sm md:text-base text-accent-foreground/85">
                 Account terms, bulk pricing and a dedicated contact for your site orders.
                 Sign up online and our team will be in touch within one business day.
               </p>
             </div>
-            <Button asChild size="lg" className="h-12 shrink-0 bg-white text-safety-700 hover:bg-white/90 font-semibold">
+            <Button
+              asChild
+              size="lg"
+              className="h-11 sm:h-12 w-full md:w-auto shrink-0 bg-background text-foreground hover:bg-background/90 font-semibold"
+            >
               <Link href="/register">
                 Apply for trade account
                 <ArrowRight className="h-4 w-4 ml-2" />
@@ -192,10 +209,10 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* New arrivals */}
-      <section className="container mx-auto pb-14 md:pb-20">
+      {/* ============ NEW ARRIVALS ============ */}
+      <section className="container mx-auto px-3 sm:px-4 pb-12 sm:pb-14 md:pb-20">
         <SectionHeading title="New arrivals" subtitle="Fresh stock just landed" href="/shop" />
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-5">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2.5 sm:gap-3 md:gap-5">
           {newArrivals.map((p) => (
             <WebsiteProductCard key={p.id} product={p} />
           ))}
@@ -208,22 +225,29 @@ export default function HomePage() {
 function Stat({ value, label }: { value: string; label: string }) {
   return (
     <div>
-      <div className="text-2xl md:text-3xl font-extrabold tabular-nums">{value}</div>
-      <div className="text-[11px] uppercase tracking-wider text-white/65 mt-0.5">{label}</div>
+      <div className="text-xl sm:text-2xl md:text-3xl font-extrabold tabular-nums">{value}</div>
+      <div className="text-[9px] sm:text-[10px] md:text-[11px] uppercase tracking-wider text-primary-foreground/65 mt-0.5">
+        {label}
+      </div>
     </div>
   );
 }
 
 function SectionHeading({ title, subtitle, href }: { title: string; subtitle: string; href: string }) {
   return (
-    <div className="flex items-end justify-between gap-4 mb-6 md:mb-8">
-      <div>
-        <h2 className="text-xl md:text-2xl font-extrabold tracking-tight">{title}</h2>
-        <p className="text-xs md:text-sm text-muted-foreground mt-1">{subtitle}</p>
+    <div className="flex items-end justify-between gap-3 sm:gap-4 mb-4 sm:mb-6 md:mb-8">
+      <div className="min-w-0">
+        <h2 className="text-lg sm:text-xl md:text-2xl font-extrabold tracking-tight">{title}</h2>
+        <p className="text-[11px] sm:text-xs md:text-sm text-muted-foreground mt-0.5 sm:mt-1 line-clamp-2">
+          {subtitle}
+        </p>
       </div>
-      <Link href={href} className="shrink-0 inline-flex items-center gap-1 text-xs md:text-sm font-semibold text-brand-600 dark:text-brand-300 hover:underline">
+      <Link
+        href={href}
+        className="shrink-0 inline-flex items-center gap-1 text-[11px] sm:text-xs md:text-sm font-semibold text-primary hover:underline"
+      >
         View all
-        <ArrowRight className="h-3.5 w-3.5" />
+        <ArrowRight className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
       </Link>
     </div>
   );
