@@ -17,12 +17,13 @@ import {
 import { Button } from '@/components/ui/button';
 import { WebsiteProductCard } from '@/components/website/product-card';
 import { HeroSlider } from '@/components/website/hero-slider';
+import { NewsletterForm } from '@/components/website/newsletter-form';
 import { demoProducts, demoCategories, demoBrands } from '@/lib/demo-data';
 import { CATEGORY_IMAGES } from '@/lib/product-image';
 import { FREE_DELIVERY_THRESHOLD, SUPPORT_PHONE_DISPLAY } from '@/lib/constants';
 
 /* ------------------------------------------------------------------ */
-/* Demo data — Deals, Best Sellers, Testimonials                      */
+/* Demo data — Deals, Testimonials                                    */
 /* ------------------------------------------------------------------ */
 
 const DEALS = [
@@ -63,12 +64,10 @@ export default function HomePage() {
     .sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1))
     .slice(0, 8);
 
-  // Best sellers — top by stock movement (using grade + stock as proxy)
   const bestSellers = [...active]
     .sort((a, b) => b.sellingPrice * b.stock - a.sellingPrice * a.stock)
     .slice(0, 8);
 
-  // Deals — pick products by ID + apply discount
   const deals = DEALS.map((d) => {
     const p = active.find((x) => x.id === d.id);
     return p ? { ...p, discount: d.discount } : null;
@@ -179,7 +178,6 @@ export default function HomePage() {
               {deals.map((p) =>
                 p ? (
                   <div key={p.id} className="relative">
-                    {/* Discount badge */}
                     <div className="absolute top-2 left-2 z-10 rounded-full bg-accent text-accent-foreground px-2.5 py-1 text-[10px] sm:text-xs font-black shadow-lg">
                       −{p.discount}%
                     </div>
@@ -285,28 +283,7 @@ export default function HomePage() {
                 Unsubscribe any time.
               </p>
             </div>
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                // handled in footer for demo
-              }}
-              className="flex flex-col sm:flex-row gap-2 w-full md:w-auto md:min-w-[380px]"
-            >
-              <input
-                type="email"
-                placeholder="you@example.com"
-                required
-                className="h-11 flex-1 rounded-md border-2 border-transparent bg-white/95 px-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary"
-              />
-              <Button
-                type="submit"
-                size="lg"
-                className="h-11 shrink-0 bg-primary text-primary-foreground hover:bg-primary/90 font-semibold"
-              >
-                Get 10% off
-                <ArrowRight className="h-4 w-4 ml-2" />
-              </Button>
-            </form>
+            <NewsletterForm />
           </div>
         </div>
       </section>
@@ -334,17 +311,14 @@ export default function HomePage() {
                 className="relative rounded-xl border bg-card p-4 sm:p-5 md:p-6 shadow-sm"
               >
                 <Quote className="absolute top-4 right-4 h-6 w-6 text-primary/10" />
-                {/* Stars */}
                 <div className="flex items-center gap-0.5 mb-3">
                   {Array.from({ length: t.rating }).map((_, i) => (
                     <Star key={i} className="h-3.5 w-3.5 fill-accent text-accent" />
                   ))}
                 </div>
-                {/* Text */}
                 <p className="text-[13px] sm:text-sm leading-relaxed text-foreground/90">
                   &ldquo;{t.text}&rdquo;
                 </p>
-                {/* Author */}
                 <div className="flex items-center gap-2.5 mt-4 pt-4 border-t border-border">
                   <div className="h-9 w-9 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-xs font-bold shrink-0">
                     {t.initials}
