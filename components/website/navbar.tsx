@@ -15,6 +15,8 @@ import {
   Phone,
   User,
   ChevronRight,
+  Flame,
+  Sparkles,
 } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
@@ -61,7 +63,7 @@ export function WebsiteNavbar() {
 
   return (
     <>
-      {/* Utility bar — deep navy background */}
+      {/* Utility bar */}
       <div className="bg-primary text-primary-foreground text-[11px] md:text-xs">
         <div className="container mx-auto flex h-8 items-center justify-between gap-4">
           <div className="flex items-center gap-2 truncate">
@@ -71,6 +73,10 @@ export function WebsiteNavbar() {
             </span>
           </div>
           <div className="hidden md:flex items-center gap-5">
+            <Link href="/shop?sort=newest" className="inline-flex items-center gap-1.5 hover:text-accent transition-colors">
+              <Sparkles className="h-3.5 w-3.5" />
+              New Arrivals
+            </Link>
             <Link href="/help" className="hover:text-accent transition-colors">
               Delivery &amp; Returns
             </Link>
@@ -80,9 +86,6 @@ export function WebsiteNavbar() {
             >
               <Store className="h-3.5 w-3.5" />
               Store Locator
-            </Link>
-            <Link href="/register" className="hover:text-accent transition-colors">
-              Trade Account
             </Link>
             <a
               href={`tel:${SUPPORT_PHONE_DISPLAY.replace(/\s/g, '')}`}
@@ -108,12 +111,8 @@ export function WebsiteNavbar() {
             <Menu className="h-5 w-5" />
           </Button>
 
-          {/* Site name — BOLD, no logo, no tagline */}
-          <Link
-            href="/"
-            className="shrink-0"
-            aria-label={`${businessInfo.name} home`}
-          >
+          {/* Site name — BOLD */}
+          <Link href="/" className="shrink-0" aria-label={`${businessInfo.name} home`}>
             <span className="text-xl md:text-2xl font-black tracking-tight text-primary">
               Southern Cross
             </span>
@@ -198,7 +197,7 @@ export function WebsiteNavbar() {
           </div>
         )}
 
-        {/* Category strip (desktop) — deep navy bar */}
+        {/* Category strip */}
         <nav
           className="hidden lg:block border-t border-border bg-primary text-primary-foreground"
           aria-label="Main"
@@ -214,15 +213,22 @@ export function WebsiteNavbar() {
               </Link>
             ))}
             <div className="mx-2 h-5 w-px bg-white/20" />
-            {MAIN_LINKS.slice(1).map((l) => (
-              <Link
-                key={l.href}
-                href={l.href}
-                className="px-3 h-full inline-flex items-center text-sm text-white/80 hover:text-white hover:bg-white/10 transition-colors"
-              >
-                {l.label}
-              </Link>
-            ))}
+
+            <Link
+              href="/shop?sort=newest"
+              className="px-3 h-full inline-flex items-center gap-1.5 text-sm font-medium hover:bg-white/10 hover:text-accent transition-colors"
+            >
+              <Sparkles className="h-3.5 w-3.5 text-accent" />
+              New
+            </Link>
+            <Link
+              href="/shop?deals=true"
+              className="px-3 h-full inline-flex items-center gap-1.5 text-sm font-medium hover:bg-white/10 hover:text-accent transition-colors"
+            >
+              <Flame className="h-3.5 w-3.5 text-accent" />
+              Deals
+            </Link>
+
             <Link
               href="/shop?category=Safety"
               className="ml-auto px-4 h-8 inline-flex items-center rounded-full bg-accent text-accent-foreground hover:bg-accent/90 text-sm font-semibold transition-colors"
@@ -233,14 +239,11 @@ export function WebsiteNavbar() {
         </nav>
       </header>
 
-      {/* Mobile / tablet menu */}
+      {/* Mobile menu */}
       <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
         <SheetContent side="left" className="p-0 w-[88vw] max-w-[320px] flex flex-col">
-          {/* Site name — BOLD, no logo, no tagline */}
           <div className="flex items-center h-16 border-b border-border px-4">
-            <span className="text-lg font-black text-primary">
-              Southern Cross
-            </span>
+            <span className="text-lg font-black text-primary">Southern Cross</span>
           </div>
 
           <div className="flex-1 overflow-y-auto">
@@ -264,9 +267,10 @@ export function WebsiteNavbar() {
             <div className="border-t border-border px-2 py-2">
               {[
                 { href: '/shop', label: 'All Products' },
+                { href: '/shop?sort=newest', label: 'New Arrivals', icon: Sparkles },
+                { href: '/shop?deals=true', label: 'Deals', icon: Flame },
                 { href: '/my-orders', label: 'My Orders' },
                 { href: '/help', label: 'Delivery & Returns' },
-                { href: '/register', label: 'Trade Account' },
                 { href: '/about', label: 'About Us' },
                 { href: '/contact', label: 'Contact & Stores' },
               ].map((l) => (
@@ -274,8 +278,9 @@ export function WebsiteNavbar() {
                   key={l.href}
                   href={l.href}
                   onClick={() => setMobileOpen(false)}
-                  className="flex items-center rounded-lg px-3 py-3 text-sm hover:bg-accent/10"
+                  className="flex items-center gap-2 rounded-lg px-3 py-3 text-sm hover:bg-accent/10"
                 >
+                  {l.icon && <l.icon className="h-4 w-4 text-accent" />}
                   {l.label}
                 </Link>
               ))}
