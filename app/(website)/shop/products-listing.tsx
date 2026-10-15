@@ -80,7 +80,6 @@ export function ProductsListing() {
     const max = priceMax ? Number(priceMax) : Infinity;
 
     let list = activeProducts.filter((p) => {
-      // If scanned — filter to that product
       if (scannedProductId && p.id !== scannedProductId) return false;
       if (q) {
         const match =
@@ -162,7 +161,13 @@ export function ProductsListing() {
     priceMax ||
     scannedProductId;
 
-  /** Handle barcode scan — filter to that product */
+  const activeFilterCount =
+    selectedCategories.length +
+    selectedBrands.length +
+    (inStockOnly ? 1 : 0) +
+    (priceMin || priceMax ? 1 : 0) +
+    (scannedProductId ? 1 : 0);
+
   const handleBarcodeScan = (code: string) => {
     const trimmed = code.trim();
     const found =
@@ -201,7 +206,7 @@ export function ProductsListing() {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search tools..."
-            className="pl-9 h-9"
+            className="pl-9 h-10 sm:h-9"
           />
         </div>
       </div>
@@ -218,14 +223,14 @@ export function ProductsListing() {
             return (
               <label
                 key={c.id}
-                className="flex items-center gap-2 cursor-pointer text-sm hover:text-foreground"
+                className="flex items-center gap-2 cursor-pointer text-sm hover:text-foreground py-0.5"
               >
                 <Checkbox
                   checked={selectedCategories.includes(c.name)}
                   onCheckedChange={() => toggleCategory(c.name)}
                 />
-                <span className="flex-1">{c.name}</span>
-                <span className="text-xs text-muted-foreground tabular-nums">
+                <span className="flex-1 truncate">{c.name}</span>
+                <span className="text-xs text-muted-foreground tabular-nums shrink-0">
                   {count}
                 </span>
               </label>
@@ -240,18 +245,19 @@ export function ProductsListing() {
         </Label>
         <div className="mt-2 space-y-2">
           {brands.map((b) => {
-            const count = activeProducts.filter((p) => p.brand === b.name).length;
+            const count = activeProducts.filter((p) => p.brand === b.name)
+              .length;
             return (
               <label
                 key={b.id}
-                className="flex items-center gap-2 cursor-pointer text-sm hover:text-foreground"
+                className="flex items-center gap-2 cursor-pointer text-sm hover:text-foreground py-0.5"
               >
                 <Checkbox
                   checked={selectedBrands.includes(b.name)}
                   onCheckedChange={() => toggleBrand(b.name)}
                 />
-                <span className="flex-1">{b.name}</span>
-                <span className="text-xs text-muted-foreground tabular-nums">
+                <span className="flex-1 truncate">{b.name}</span>
+                <span className="text-xs text-muted-foreground tabular-nums shrink-0">
                   {count}
                 </span>
               </label>
@@ -270,7 +276,7 @@ export function ProductsListing() {
             value={priceMin}
             onChange={(e) => setPriceMin(e.target.value)}
             placeholder="Min"
-            className="h-9 text-xs"
+            className="h-10 sm:h-9 text-xs"
           />
           <span className="text-muted-foreground">—</span>
           <Input
@@ -278,13 +284,13 @@ export function ProductsListing() {
             value={priceMax}
             onChange={(e) => setPriceMax(e.target.value)}
             placeholder="Max"
-            className="h-9 text-xs"
+            className="h-10 sm:h-9 text-xs"
           />
         </div>
       </div>
 
       <div className="pt-4 border-t border-border">
-        <label className="flex items-center gap-2 cursor-pointer text-sm">
+        <label className="flex items-center gap-2 cursor-pointer text-sm py-0.5">
           <Checkbox
             checked={inStockOnly}
             onCheckedChange={(v) => setInStockOnly(!!v)}
@@ -298,7 +304,7 @@ export function ProductsListing() {
           variant="ghost"
           size="sm"
           onClick={clearAll}
-          className="w-full text-xs"
+          className="w-full text-xs h-10 sm:h-9"
         >
           <X className="h-3.5 w-3.5 mr-1" />
           Clear all filters
@@ -308,11 +314,12 @@ export function ProductsListing() {
   );
 
   return (
-    <div className="container mx-auto py-6 md:py-8">
+    <div className="container mx-auto px-3 sm:px-4 py-4 sm:py-6 md:py-8">
+      {/* ---------- HEADER ---------- */}
       <div className="mb-4 md:mb-6">
-        <div className="flex items-start justify-between gap-3 flex-wrap">
-          <div className="min-w-0">
-            <h1 className="text-2xl md:text-3xl font-bold tracking-tight">
+        <div className="flex items-start justify-between gap-2 flex-wrap">
+          <div className="min-w-0 flex-1">
+            <h1 className="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight">
               All Products
             </h1>
             <p className="text-xs md:text-sm text-muted-foreground mt-1">
@@ -328,7 +335,6 @@ export function ProductsListing() {
             </p>
           </div>
 
-          {/* Scan button — visible on all screens */}
           <BarcodeScanButton
             onScan={handleBarcodeScan}
             label="Scan"
@@ -338,13 +344,13 @@ export function ProductsListing() {
         </div>
       </div>
 
-      {/* Scanned Alert */}
+      {/* ---------- SCANNED ALERT ---------- */}
       {scannedProductId && (
-        <div className="mb-4 rounded-lg border border-brand-500/30 bg-brand-500/5 p-3 flex items-center justify-between gap-3">
-          <div className="flex items-center gap-2 text-sm min-w-0">
-            <ScanBarcode className="h-4 w-4 text-brand-600 dark:text-brand-400 shrink-0" />
+        <div className="mb-3 sm:mb-4 rounded-lg border border-primary/30 bg-primary/5 p-2.5 sm:p-3 flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2 text-xs sm:text-sm min-w-0 flex-1">
+            <ScanBarcode className="h-4 w-4 text-primary shrink-0" />
             <span className="font-medium truncate">
-              Filtered by scan:{' '}
+              Scan:{' '}
               <span className="font-semibold">
                 {activeProducts.find((p) => p.id === scannedProductId)?.name}
               </span>
@@ -353,35 +359,33 @@ export function ProductsListing() {
           <Button
             size="sm"
             variant="ghost"
-            className="h-7 text-xs shrink-0"
+            className="h-7 text-xs shrink-0 px-2"
             onClick={clearScan}
           >
-            <X className="h-3.5 w-3.5 mr-1" />
-            Clear
+            <X className="h-3.5 w-3.5 sm:mr-1" />
+            <span className="hidden sm:inline">Clear</span>
           </Button>
         </div>
       )}
 
-      <div className="lg:hidden flex items-center gap-2 mb-4">
+      {/* ---------- MOBILE TOOLBAR ---------- */}
+      <div className="lg:hidden flex items-center gap-2 mb-3 sm:mb-4">
         <Button
           variant="outline"
           onClick={() => setMobileFiltersOpen(true)}
-          className="h-9 flex-1 justify-start"
+          className="h-9 flex-1 justify-start px-3 min-w-0"
         >
-          <SlidersHorizontal className="h-4 w-4 mr-2" />
-          Filters
-          {hasFilters && (
-            <span className="ml-auto h-5 min-w-5 px-1.5 rounded-full bg-brand-600 text-white text-[10px] font-bold flex items-center justify-center">
-              {selectedCategories.length +
-                selectedBrands.length +
-                (inStockOnly ? 1 : 0) +
-                (priceMin || priceMax ? 1 : 0) +
-                (scannedProductId ? 1 : 0)}
+          <SlidersHorizontal className="h-4 w-4 mr-2 shrink-0" />
+          <span className="truncate">Filters</span>
+          {hasFilters && activeFilterCount > 0 && (
+            <span className="ml-auto h-5 min-w-5 px-1.5 rounded-full bg-primary text-primary-foreground text-[10px] font-bold flex items-center justify-center shrink-0">
+              {activeFilterCount}
             </span>
           )}
         </Button>
+
         <Select value={sort} onValueChange={(v) => setSort(v as SortKey)}>
-          <SelectTrigger className="h-9 w-[160px]">
+          <SelectTrigger className="h-9 w-[140px] xs:w-[160px] shrink-0 text-xs sm:text-sm">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
@@ -394,14 +398,17 @@ export function ProductsListing() {
         </Select>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-[260px_1fr] gap-6">
+      {/* ---------- MAIN GRID ---------- */}
+      <div className="grid grid-cols-1 lg:grid-cols-[260px_1fr] gap-4 lg:gap-6">
+        {/* Desktop sidebar */}
         <aside className="hidden lg:block">
           <div className="sticky top-20 rounded-xl border bg-card p-4">
             {FiltersPanel}
           </div>
         </aside>
 
-        <div>
+        <div className="min-w-0">
+          {/* Desktop toolbar */}
           <div className="hidden lg:flex items-center justify-between gap-3 mb-4">
             <div className="text-xs text-muted-foreground">
               Showing{' '}
@@ -424,32 +431,33 @@ export function ProductsListing() {
             </Select>
           </div>
 
+          {/* Active filter chips */}
           {hasFilters && (
-            <div className="flex flex-wrap items-center gap-1.5 mb-4">
+            <div className="flex flex-wrap items-center gap-1.5 mb-3 sm:mb-4">
               {selectedCategories.map((c) => (
                 <button
                   key={c}
                   onClick={() => toggleCategory(c)}
-                  className="inline-flex items-center gap-1 rounded-full bg-brand-500/10 text-brand-700 dark:text-brand-400 px-2.5 py-1 text-[11px] font-medium hover:bg-brand-500/20"
+                  className="inline-flex items-center gap-1 rounded-full bg-primary/10 text-primary px-2 py-0.5 sm:px-2.5 sm:py-1 text-[10px] sm:text-[11px] font-medium hover:bg-primary/20 max-w-[160px]"
                 >
-                  {c}
-                  <X className="h-3 w-3" />
+                  <span className="truncate">{c}</span>
+                  <X className="h-3 w-3 shrink-0" />
                 </button>
               ))}
               {selectedBrands.map((b) => (
                 <button
                   key={b}
                   onClick={() => toggleBrand(b)}
-                  className="inline-flex items-center gap-1 rounded-full bg-brand-500/10 text-brand-700 dark:text-brand-400 px-2.5 py-1 text-[11px] font-medium hover:bg-brand-500/20"
+                  className="inline-flex items-center gap-1 rounded-full bg-primary/10 text-primary px-2 py-0.5 sm:px-2.5 sm:py-1 text-[10px] sm:text-[11px] font-medium hover:bg-primary/20 max-w-[160px]"
                 >
-                  {b}
-                  <X className="h-3 w-3" />
+                  <span className="truncate">{b}</span>
+                  <X className="h-3 w-3 shrink-0" />
                 </button>
               ))}
               {inStockOnly && (
                 <button
                   onClick={() => setInStockOnly(false)}
-                  className="inline-flex items-center gap-1 rounded-full bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 px-2.5 py-1 text-[11px] font-medium hover:bg-emerald-500/20"
+                  className="inline-flex items-center gap-1 rounded-full bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 px-2 py-0.5 sm:px-2.5 sm:py-1 text-[10px] sm:text-[11px] font-medium hover:bg-emerald-500/20"
                 >
                   In stock
                   <X className="h-3 w-3" />
@@ -461,7 +469,7 @@ export function ProductsListing() {
                     setPriceMin('');
                     setPriceMax('');
                   }}
-                  className="inline-flex items-center gap-1 rounded-full bg-amber-500/10 text-amber-700 dark:text-amber-400 px-2.5 py-1 text-[11px] font-medium hover:bg-amber-500/20"
+                  className="inline-flex items-center gap-1 rounded-full bg-amber-500/10 text-amber-700 dark:text-amber-400 px-2 py-0.5 sm:px-2.5 sm:py-1 text-[10px] sm:text-[11px] font-medium hover:bg-amber-500/20"
                 >
                   ${priceMin || '0'} - ${priceMax || '∞'}
                   <X className="h-3 w-3" />
@@ -470,6 +478,7 @@ export function ProductsListing() {
             </div>
           )}
 
+          {/* Product grid OR empty state */}
           {filtered.length === 0 ? (
             <div className="rounded-xl border bg-card">
               <EmptyState
@@ -484,7 +493,7 @@ export function ProductsListing() {
               />
             </div>
           ) : (
-            <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2.5 sm:gap-3 md:gap-4">
               {filtered.map((p) => (
                 <WebsiteProductCard key={p.id} product={p} />
               ))}
@@ -493,18 +502,19 @@ export function ProductsListing() {
         </div>
       </div>
 
+      {/* ---------- MOBILE FILTER DRAWER ---------- */}
       <Sheet open={mobileFiltersOpen} onOpenChange={setMobileFiltersOpen}>
         <SheetContent
           side="left"
-          className="w-full sm:w-[380px] p-0 flex flex-col"
+          className="w-full xs:w-[340px] sm:w-[380px] p-0 flex flex-col"
         >
           <SheetHeader className="px-4 py-3 border-b border-border">
             <SheetTitle>Filters</SheetTitle>
           </SheetHeader>
           <div className="flex-1 overflow-y-auto p-4">{FiltersPanel}</div>
-          <div className="border-t border-border p-4">
+          <div className="border-t border-border p-3 sm:p-4">
             <Button
-              className="w-full h-10"
+              className="w-full h-10 bg-primary text-primary-foreground hover:bg-primary/90"
               onClick={() => setMobileFiltersOpen(false)}
             >
               Show {filtered.length} result{filtered.length === 1 ? '' : 's'}
